@@ -1,23 +1,26 @@
 ---
-title: "دليل تثبيت OpenClaw على Linux (Ubuntu/Debian): خطوة بخطوة"
-excerpt: "تعلم كيفية تثبيت وإعداد OpenClaw على نظام Linux بالتفصيل، من تثبيت Node.js إلى تشغيل أول مساعد ذكي لك"
+title: "دليل تثبيت أوبن كلاو (OpenClaw) على Linux (Ubuntu/Debian): خطوة بخطوة"
+excerpt: "تعلم كيفية تثبيت وإعداد أوبن كلاو (OpenClaw) على نظام Linux بالتفصيل، من تثبيت Node.js إلى تشغيل أول مساعد ذكي لك"
 date: "2026-02-11"
+author: "فريق ArabClaw"
+tags: ["تثبيت", "Linux", "Ubuntu", "دليل"]
+language: "ar"
 ---
 
-# دليل تثبيت OpenClaw على Linux (Ubuntu/Debian): خطوة بخطوة
+# دليل تثبيت أوبن كلاو (OpenClaw) على Linux (Ubuntu/Debian): خطوة بخطوة
 
-إذا كنت من مستخدمي Linux وترغب في الاستفادة من قوة **OpenClaw** لأتمتة مهامك اليومية، فأنت في المكان الصحيح! في هذا الدليل الشامل، سنغطي كل خطوة من البداية إلى النهاية لتثبيت OpenClaw على Ubuntu أو Debian.
+**ما ستتعلمه في هذا المقال:** يقدم هذا الدليل الشامل جميع خطوات تثبيت أوبن كلاو (OpenClaw) على Ubuntu وDebian، من تثبيت Node.js وإعداد التبعيات إلى تكوين Telegram وتشغيل أوبن كلاو (OpenClaw) كخدمة systemd. بنهاية هذا الدليل ستكون لديك مساعد ذكاء اصطناعي يعمل على جهازك Linux.
 
-## لماذا OpenClaw على Linux؟
+إذا كنت من مستخدمي Linux وترغب في الاستفادة من قوة **أوبن كلاو (OpenClaw)** لأتمتة مهامك اليومية، فأنت في المكان الصحيح! في هذا الدليل الشامل، سنغطي كل خطوة من البداية إلى النهاية لتثبيت أوبن كلاو (OpenClaw) على Ubuntu أو Debian.
 
-Linux هو البيئة المثالية لـ OpenClaw لعدة أسباب:
+## لماذا أوبن كلاو (OpenClaw) على Linux؟
+
+Linux هو البيئة المثالية لـ أوبن كلاو (OpenClaw) لعدة أسباب:
 
 - **الأداء العالي**: استهلاك أقل للموارد مقارنة بأنظمة أخرى
 - **الاستقرار**: مثالي للتشغيل على خوادم VPS أو Raspberry Pi
 - **المرونة**: تحكم كامل في النظام والأتمتة
-- **التكلفة**: يمكنك تشغيل OpenClaw على خادم VPS بتكلفة منخفضة
-
-إذا كنت تفكر في تشغيل OpenClaw على VPS، راجع [دليل التثبيت على VPS](/blog/install-openclaw-vps) أيضًا.
+- **التكلفة**: يمكنك تشغيل أوبن كلاو (OpenClaw) على خادم VPS بتكلفة منخفضة
 
 ## المتطلبات الأساسية
 
@@ -41,7 +44,7 @@ sudo apt update && sudo apt upgrade -y
 
 ## الخطوة 2: تثبيت Node.js (الطريقة الموصى بها)
 
-OpenClaw يتطلب **Node.js 18** أو أحدث. سنستخدم NodeSource PPA للحصول على أحدث إصدار:
+أوبن كلاو (OpenClaw) يتطلب **Node.js 18** أو أحدث. سنستخدم NodeSource PPA للحصول على أحدث إصدار:
 
 ```bash
 # تثبيت curl إذا لم يكن موجودًا
@@ -77,7 +80,7 @@ nvm alias default 20
 
 ## الخطوة 3: تثبيت التبعيات الإضافية
 
-بعض المهارات في OpenClaw تتطلب حزم إضافية:
+بعض المهارات في أوبن كلاو (OpenClaw) تتطلب حزم إضافية:
 
 ```bash
 # أدوات البناء (مطلوبة لبعض الحزم)
@@ -93,9 +96,9 @@ sudo apt install -y ffmpeg
 sudo apt install -y imagemagick
 ```
 
-## الخطوة 4: تثبيت OpenClaw
+## الخطوة 4: تثبيت أوبن كلاو (OpenClaw)
 
-الآن، لنقم بتثبيت OpenClaw عالميًا:
+الآن، لنقم بتثبيت أوبن كلاو (OpenClaw) عالميًا:
 
 ```bash
 sudo npm install -g openclaw
@@ -109,18 +112,18 @@ sudo npm install -g openclaw
 openclaw --version
 ```
 
-إذا ظهر رقم الإصدار، تهانينا! OpenClaw مثبت بنجاح.
+إذا ظهر رقم الإصدار، تهانينا! أوبن كلاو (OpenClaw) مثبت بنجاح.
 
-## الخطوة 5: إعداد OpenClaw
+## الخطوة 5: إعداد أوبن كلاو (OpenClaw)
 
-الآن، لنقم بإعداد OpenClaw للاستخدام لأول مرة:
+الآن، لنقم بإعداد أوبن كلاو (OpenClaw) للاستخدام لأول مرة:
 
 ```bash
 # إنشاء مجلد العمل
 mkdir -p ~/clawd
 cd ~/clawd
 
-# تهيئة OpenClaw
+# تهيئة أوبن كلاو
 openclaw init
 ```
 
@@ -130,11 +133,9 @@ openclaw init
 2. **API Key**: أدخل مفتاح Anthropic API الخاص بك
 3. **اسم المساعد**: اختر اسمًا (مثل "Julie" أو "Ahmad")
 
-إذا لم يكن لديك API key بعد، راجع [دليل المبتدئين](/blog/beginners-guide) للحصول على واحد.
-
 ## الخطوة 6: إنشاء ملف الخدمة (systemd)
 
-لتشغيل OpenClaw كخدمة تبدأ تلقائيًا مع النظام:
+لتشغيل أوبن كلاو (OpenClaw) كخدمة تبدأ تلقائيًا مع النظام:
 
 ```bash
 # إنشاء ملف الخدمة
@@ -181,13 +182,13 @@ sudo systemctl status openclaw
 
 ## الخطوة 7: إعداد Telegram (اختياري ولكن موصى به)
 
-لاستخدام OpenClaw عبر Telegram:
+لاستخدام أوبن كلاو (OpenClaw) عبر Telegram:
 
 1. افتح Telegram وابحث عن [@BotFather](https://t.me/BotFather)
 2. أرسل `/newbot` واتبع التعليمات
 3. احفظ الـ **Bot Token** الذي تحصل عليه
 
-الآن، قم بإضافة البوت إلى إعدادات OpenClaw:
+الآن، قم بإضافة البوت إلى إعدادات أوبن كلاو (OpenClaw):
 
 ```bash
 openclaw config set telegram.token "YOUR_BOT_TOKEN"
@@ -204,7 +205,7 @@ curl https://api.telegram.org/botYOUR_BOT_TOKEN/getUpdates
 
 ## الخطوة 8: تثبيت المهارات الأساسية
 
-OpenClaw يصبح أقوى مع المهارات. لنثبت بعضها:
+أوبن كلاو (OpenClaw) يصبح أقوى مع المهارات. لنثبت بعضها:
 
 ```bash
 # مهارة GitHub للمطورين
@@ -216,8 +217,6 @@ openclaw skill install weather
 # مهارة WhatsApp للأتمتة
 openclaw skill install whatsapp
 ```
-
-للمزيد عن مهارة WhatsApp، راجع [دليل أتمتة WhatsApp](/blog/2026-02-08-whatsapp-automation-guide).
 
 ## الخطوة 9: اختبار التثبيت
 
@@ -252,7 +251,7 @@ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-ثم أعد تثبيت OpenClaw بدون sudo:
+ثم أعد تثبيت أوبن كلاو (OpenClaw) بدون sudo:
 
 ```bash
 npm install -g openclaw
@@ -279,7 +278,7 @@ openclaw gateway restart
 
 ## الأمان والحماية
 
-عند تشغيل OpenClaw على خادم، اتبع هذه الممارسات:
+عند تشغيل أوبن كلاو (OpenClaw) على خادم، اتبع هذه الممارسات:
 
 1. **جدار ناري**: استخدم ufw لتقييد الوصول
    ```bash
@@ -297,36 +296,49 @@ openclaw gateway restart
    tar -czf clawd-backup-$(date +%Y%m%d).tar.gz ~/clawd
    ```
 
-للمزيد عن الأمان، راجع [دليل الأمان والخصوصية](/blog/2026-02-07-security-privacy).
+راجع [دليل الأمان والخصوصية](/blog/2026-02-07-security-privacy) للمزيد.
 
 ## الخطوات التالية
 
-الآن بعد أن أصبح OpenClaw مثبتًا ويعمل:
+الآن بعد أن أصبح أوبن كلاو (OpenClaw) مثبتًا ويعمل:
 
 1. **تخصيص شخصية المساعد**: عدّل `SOUL.md` و `IDENTITY.md`
 2. **أتمتة المهام**: استخدم Cron Jobs لجدولة المهام
-3. **استكشف المهارات**: جرب [أفضل المهارات للمستخدمين العرب](/blog/best-skills-arabic)
-4. **تكامل مع أدوات أخرى**: جرب [أتمتة GitHub](/blog/2026-02-10-github-automation-openclaw) أو [أتمتة البريد الإلكتروني](/blog/email-automation-openclaw)
+3. **تكامل مع أدوات أخرى**: جرب [أتمتة GitHub](/blog/2026-02-10-github-automation-openclaw)
 
 ## المقارنة مع منصات أخرى
 
-إذا كنت تتساءل لماذا OpenClaw وليس أدوات أخرى:
+إذا كنت تتساءل لماذا أوبن كلاو (OpenClaw) وليس أدوات أخرى:
 
 - **مقابل Zapier**: راجع [مقارنة OpenClaw vs Zapier](/blog/2026-02-09-openclaw-vs-zapier-comparison)
 - **مقابل Make**: راجع [مقارنة OpenClaw vs Make](/blog/2026-02-09-openclaw-vs-make-comparison)
 
-OpenClaw يمنحك **تحكمًا كاملاً** و**خصوصية** و**قابلية للتوسع** بدون قيود الاشتراكات الشهرية.
+أوبن كلاو (OpenClaw) يمنحك **تحكمًا كاملاً** و**خصوصية** و**قابلية للتوسع** بدون قيود الاشتراكات الشهرية.
 
 ## الخلاصة
 
-تثبيت OpenClaw على Linux عملية بسيطة ومباشرة. باتباع هذا الدليل، لديك الآن مساعد ذكي قوي يعمل على نظامك، جاهز لأتمتة مهامك اليومية.
+تثبيت أوبن كلاو (OpenClaw) على Linux عملية بسيطة ومباشرة. باتباع هذا الدليل، لديك الآن مساعد ذكي قوي يعمل على نظامك، جاهز لأتمتة مهامك اليومية.
 
-الجميل في OpenClaw أنه يتحسن مع الاستخدام - كلما تفاعلت معه أكثر، كلما فهمك بشكل أفضل وأصبح أكثر فائدة.
+الجميل في أوبن كلاو (OpenClaw) أنه يتحسن مع الاستخدام — كلما تفاعلت معه أكثر، كلما فهمك بشكل أفضل وأصبح أكثر فائدة.
 
-إذا واجهت أي مشاكل، لا تتردد في زيارة [دليل المبتدئين](/blog/beginners-guide) أو التواصل مع المجتمع.
+---
+
+## الأسئلة الشائعة
+
+**ما هي متطلبات تشغيل أوبن كلاو (OpenClaw) على Linux؟**
+يحتاج أوبن كلاو (OpenClaw) إلى Node.js 18+ و2GB RAM كحد أدنى (4GB موصى به) ومساحة قرص 5GB. يعمل على Ubuntu 20.04+ وDebian 11+ وتوزيعات مشابهة.
+
+**هل يمكن تشغيل أوبن كلاو (OpenClaw) على Raspberry Pi؟**
+نعم، أوبن كلاو (OpenClaw) يعمل على Raspberry Pi 4 وأحدث. تأكد من تثبيت نظام 64-bit وNode.js المناسب لـ ARM64.
+
+**كيف أشغل أوبن كلاو (OpenClaw) كخدمة تبدأ تلقائياً؟**
+استخدم systemd كما هو موضح في الخطوة 6 من هذا الدليل. أنشئ ملف service ثم استخدم `systemctl enable openclaw` لتفعيل البدء التلقائي.
+
+**هل أوبن كلاو (OpenClaw) يعمل مع توزيعات Linux الأخرى غير Ubuntu؟**
+نعم، أوبن كلاو (OpenClaw) يعمل على أي توزيعة تدعم Node.js 18+، بما في ذلك Fedora وArch وCentOS وغيرها. قد تختلف أوامر تثبيت التبعيات.
 
 ---
 
 **هل أعجبك هذا الدليل؟** شاركه مع أصدقائك المهتمين بالأتمتة والذكاء الاصطناعي!
 
-**التالي**: تعلم كيفية [إنشاء أول مهارة مخصصة](/blog/create-first-skill) لـ OpenClaw.
+**التالي**: تعلم كيفية [إنشاء أول مهارة مخصصة](/blog/create-first-skill) لـ أوبن كلاو (OpenClaw).
