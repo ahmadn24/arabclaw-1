@@ -1,22 +1,25 @@
 ---
 title: "أتمتة المهام الزمنية مع OpenClaw: دليل شامل لـ Cron Jobs"
-excerpt: "تعلم كيفية جدولة المهام التلقائية، إنشاء التذكيرات الذكية، وأتمتة سير العمل اليومي باستخدام نظام Cron في OpenClaw - من المبتدئين إلى المتقدمين"
+excerpt: "تعلم كيفية جدولة المهام التلقائية، إنشاء التذكيرات الذكية، وأتمتة سير العمل اليومي باستخدام نظام Cron في أوبن كلاو (OpenClaw)"
 date: "2026-02-15"
+author: "فريق ArabClaw"
+tags: ["Cron Jobs", "أتمتة", "جدولة", "OpenClaw"]
+language: "ar"
 ---
 
 # أتمتة المهام الزمنية مع OpenClaw: دليل شامل لـ Cron Jobs
 
-هل سبق لك أن تمنيت لو كان لديك مساعد شخصي يذكرك بالمواعيد، يفحص بريدك الإلكتروني تلقائياً، أو ينشر محتوى على وسائل التواصل في أوقات محددة؟ مع نظام **Cron Jobs** في OpenClaw، كل هذا ممكن وأكثر.
+**ما ستتعلمه في هذا المقال:** يشرح هذا الدليل الشامل كيفية استخدام نظام Cron Jobs في أوبن كلاو (OpenClaw) لجدولة المهام التلقائية. ستتعلم أنواع الجدولة المختلفة (at, every, cron expressions)، أنواع المهام (systemEvent, agentTurn)، و10 سيناريوهات عملية من التذكيرات البسيطة إلى التقارير الأسبوعية المعقدة.
 
-في هذا الدليل الشامل، سنستكشف كيفية استخدام ميزة الجدولة الزمنية القوية في OpenClaw لأتمتة حياتك الرقمية بالكامل.
+هل سبق لك أن تمنيت لو كان لديك مساعد شخصي يذكرك بالمواعيد، يفحص بريدك الإلكتروني تلقائياً، أو ينشر محتوى على وسائل التواصل في أوقات محددة؟ مع نظام **Cron Jobs** في أوبن كلاو (OpenClaw)، كل هذا ممكن وأكثر.
 
-## ما هي Cron Jobs في OpenClaw؟
+## ما هي Cron Jobs في أوبن كلاو (OpenClaw)؟
 
 **Cron Jobs** هي مهام مجدولة تعمل تلقائياً في أوقات محددة أو بفترات متكررة. على عكس الأوامر اليدوية، تعمل هذه المهام في الخلفية دون تدخل بشري.
 
 ### الفرق بين Cron و Heartbeat
 
-OpenClaw يوفر آليتين للمهام الدورية:
+أوبن كلاو (OpenClaw) يوفر آليتين للمهام الدورية:
 
 - **Heartbeat**: فحوصات خفيفة متكررة (كل 30 دقيقة تقريباً) للمهام البسيطة
 - **Cron Jobs**: جدولة دقيقة بالوقت المحدد للمهام المعقدة أو الحرجة
@@ -32,9 +35,7 @@ OpenClaw يوفر آليتين للمهام الدورية:
 - تريد استخدام نموذج AI مختلف أو مستوى تفكير خاص
 - تذكيرات لمرة واحدة ("ذكرني بعد 20 دقيقة")
 
-## أنواع الجدولة في OpenClaw
-
-OpenClaw يدعم ثلاثة أنماط جدولة قوية:
+## أنواع الجدولة في أوبن كلاو (OpenClaw)
 
 ### 1. الجدولة بوقت محدد (At Schedule)
 
@@ -178,59 +179,6 @@ openclaw cron add \
   --session isolated
 ```
 
-### 6. تنظيف الملفات المؤقتة
-
-```bash
-openclaw cron add \
-  --name "تنظيف أسبوعي" \
-  --schedule-cron "0 3 * * 0" \
-  --payload-agent "احذف الملفات المؤقتة الأقدم من 30 يوم في ~/Downloads و ~/tmp" \
-  --session isolated
-```
-
-### 7. متابعة وسائل التواصل
-
-```bash
-openclaw cron add \
-  --name "فحص Twitter" \
-  --schedule-cron "0 */3 * * *" \
-  --payload-agent "افحص التنويهات والرسائل الجديدة على Twitter وأرسل ملخص" \
-  --delivery-mode announce \
-  --session isolated
-```
-
-### 8. تحديثات النظام التلقائية
-
-```bash
-openclaw cron add \
-  --name "تحديث النظام" \
-  --schedule-cron "0 4 * * 2" \
-  --payload-agent "فحص تحديثات النظام باستخدام brew update && brew upgrade، أرسل تقرير" \
-  --session isolated
-```
-
-### 9. تقرير صحي يومي
-
-```bash
-openclaw cron add \
-  --name "تقرير صحة النظام" \
-  --schedule-cron "0 20 * * *" \
-  --payload-agent "افحص مساحة القرص، استخدام CPU، الذاكرة، حالة الخدمات وأرسل تقرير" \
-  --delivery-mode announce \
-  --session isolated
-```
-
-### 10. منشورات مجدولة
-
-```bash
-openclaw cron add \
-  --name "نشر مقال يومي" \
-  --schedule-cron "0 10 * * *" \
-  --payload-agent "اكتب وانشر مقال جديد على المدونة عن OpenClaw" \
-  --session isolated \
-  --delivery-mode announce
-```
-
 ## إدارة Cron Jobs
 
 ### عرض جميع المهام
@@ -325,7 +273,6 @@ openclaw cron runs --job-id abc123
 
 // ✅ صحيح
 "at": "2026-02-16T09:00:00+01:00"  // باريس شتاء
-"at": "2026-06-16T09:00:00+02:00"  // باريس صيف
 ```
 
 للـ Cron، استخدم `tz`:
@@ -336,50 +283,6 @@ openclaw cron runs --job-id abc123
   "expr": "0 9 * * *",
   "tz": "Europe/Paris"
 }
-```
-
-### 4. إدارة السياق
-
-للمهام التي تحتاج سياق المحادثة الأخيرة:
-
-```bash
-openclaw cron wake \
-  --text "افحص آخر 5 رسائل وأرسل ملخص" \
-  --context-messages 5
-```
-
-## حالات استخدام متقدمة
-
-### مراقبة موقع ويب
-
-```bash
-openclaw cron add \
-  --name "مراقبة موقع" \
-  --schedule-every 300000 \
-  --payload-agent "افحص https://mysite.com، إذا كان down أو بطيء (>3s) أرسل تنبيه فوري" \
-  --session isolated
-```
-
-### نشر محتوى متعدد المنصات
-
-```bash
-openclaw cron add \
-  --name "نشر صباحي" \
-  --schedule-cron "0 8 * * *" \
-  --payload-agent "اكتب منشور ملهم عن AI، انشره على Twitter و LinkedIn و Telegram" \
-  --session isolated \
-  --delivery-mode announce
-```
-
-### تقارير مالية
-
-```bash
-openclaw cron add \
-  --name "تقرير مالي شهري" \
-  --schedule-cron "0 9 1 * *" \
-  --payload-agent "اجمع المعاملات المالية من آخر شهر، احسب الإحصائيات، أرسل تقرير PDF" \
-  --session isolated \
-  --delivery-channel telegram
 ```
 
 ## الأخطاء الشائعة وحلولها
@@ -414,19 +317,9 @@ openclaw cron update --job-id abc123 --patch '{"enabled": true}'
 --session main --payload-system "تذكير: ..."
 ```
 
-## الربط مع مهارات OpenClaw الأخرى
-
-Cron Jobs تعمل بشكل رائع مع:
-
-- **[GitHub Automation](/blog/2026-02-10-github-automation-openclaw)**: نشر تقارير CI/CD تلقائية
-- **[Email Automation](/blog/email-automation-openclaw)**: فحص وردّ على الرسائل المهمة
-- **[WhatsApp Automation](/blog/2026-02-08-whatsapp-automation-guide)**: إرسال رسائل مجدولة
-- **[Smart Home](/blog/2026-02-12-smart-home-automation-openclaw)**: أتمتة الأجهزة بجداول زمنية
-- **[Security Guide](/blog/2026-02-14-openclaw-security-privacy-guide)**: فحوصات أمنية دورية
-
 ## الخلاصة
 
-نظام Cron Jobs في OpenClaw يحول مساعدك الشخصي من أداة تفاعلية إلى **نظام أتمتة كامل يعمل 24/7**.
+نظام Cron Jobs في أوبن كلاو (OpenClaw) يحول مساعدك الشخصي من أداة تفاعلية إلى **نظام أتمتة كامل يعمل 24/7**.
 
 **الفوائد الرئيسية:**
 - ⏰ جدولة دقيقة بالثانية
@@ -435,22 +328,27 @@ Cron Jobs تعمل بشكل رائع مع:
 - 🔄 أتمتة كاملة لسير العمل
 - 💰 توفير الوقت والجهد
 
-### الخطوات التالية
+---
 
-1. **ابدأ بسيط:** جرّب تذكير بسيط باستخدام `schedule-at`
-2. **اكتشف الأنماط:** تعلم تعبيرات Cron للجدولة المعقدة
-3. **ادمج المهارات:** اربط Cron مع GitHub، Email، WhatsApp
-4. **راقب وحسّن:** استخدم `cron runs` لتحسين المهام
-5. **شارك تجربتك:** انضم لمجتمع [OpenClaw Discord](https://discord.com/invite/clawd)
+## الأسئلة الشائعة
 
-هل أنت مستعد لأتمتة حياتك الرقمية؟ ابدأ الآن مع OpenClaw Cron Jobs! 🚀
+**ما الفرق بين Cron وHeartbeat في أوبن كلاو (OpenClaw)؟**
+Heartbeat للفحوصات الخفيفة المتكررة (كل ~30 دقيقة) مع سياق المحادثة. Cron للمهام بتوقيت دقيق أو معزولة عن الجلسة الرئيسية.
+
+**كم عدد Cron Jobs التي يمكنني إنشاؤها في أوبن كلاو (OpenClaw)؟**
+لا يوجد حد مدمج. لكن كل مهمة agentTurn تستهلك API calls، لذا راقب استخدامك.
+
+**هل يمكن إرسال نتائج Cron Job إلى Telegram أو WhatsApp؟**
+نعم، استخدم خيار `--delivery-mode announce --delivery-channel telegram` لإرسال النتائج تلقائياً.
+
+**كيف أتعامل مع المناطق الزمنية في Cron Jobs؟**
+استخدم `--schedule-tz "Europe/Paris"` مع تعبيرات cron، أو أضف offset المنطقة الزمنية للتواريخ مثل `+01:00`.
 
 ---
 
 **موارد إضافية:**
-- [دليل المبتدئين لـ OpenClaw](/blog/beginners-guide)
-- [تثبيت OpenClaw على Linux](/blog/2026-02-11-install-openclaw-linux-ubuntu)
+- [دليل المبتدئين لـ أوبن كلاو (OpenClaw)](/blog/beginners-guide)
+- [تثبيت أوبن كلاو (OpenClaw) على Linux](/blog/2026-02-11-install-openclaw-linux-ubuntu)
 - [إنشاء مساعد AI شخصي](/blog/2026-02-13-create-personal-ai-assistant)
-- [التوثيق الرسمي](https://docs.openclaw.ai)
 
 *هل كان هذا المقال مفيداً؟ شاركه مع أصدقائك المهتمين بالأتمتة!* 💙
