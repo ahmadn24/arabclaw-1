@@ -11,32 +11,32 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   title: {
-    default: "ArabClaw - OpenClaw بالعربية",
+    default: "ArabClaw - المرجع العربي الأول لـ OpenClaw",
     template: "%s | ArabClaw"
   },
-  description: "أسهل طريقة لاستخدام الذكاء الاصطناعي بالعربية - OpenClaw باللغة العربية",
-  keywords: ["OpenClaw", "Arabic", "AI", "عربي", "ذكاء اصطناعي", "Claude", "ChatGPT"],
+  description: "ArabClaw هو المرجع العربي الأول لـ OpenClaw — أدلة التثبيت، الوثائق، والـ fork العربي مفتوح المصدر لخدمة 400 مليون ناطق بالعربية",
+  keywords: ["OpenClaw", "Arabic", "AI", "عربي", "ذكاء اصطناعي", "Claude", "ChatGPT", "تثبيت OpenClaw", "ArabClaw", "وكيل ذكاء اصطناعي", "مرجع عربي"],
   authors: [{ name: "ArabClaw Team" }],
   openGraph: {
     type: "website",
     locale: "ar_SA",
     url: "https://arabclaw.com",
     siteName: "ArabClaw",
-    title: "ArabClaw - OpenClaw بالعربية",
-    description: "أسهل طريقة لاستخدام الذكاء الاصطناعي بالعربية",
+    title: "ArabClaw - المرجع العربي الأول لـ OpenClaw",
+    description: "أكبر مجتمع عربي حول OpenClaw — دليل التثبيت، الوثائق، والـ fork العربي",
     images: [
       {
         url: "/mascot.jpg",
         width: 1200,
         height: 630,
-        alt: "ArabClaw",
+        alt: "ArabClaw - المرجع العربي لـ OpenClaw",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ArabClaw - OpenClaw بالعربية",
-    description: "أسهل طريقة لاستخدام الذكاء الاصطناعي بالعربية",
+    title: "ArabClaw - المرجع العربي الأول لـ OpenClaw",
+    description: "أكبر مجتمع عربي حول OpenClaw — دليل التثبيت، الوثائق، والـ fork العربي",
     images: ["/mascot.jpg"],
   },
   metadataBase: new URL("https://arabclaw.com"),
@@ -49,20 +49,36 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ArabClaw",
-    "alternateName": "OpenClaw بالعربية",
-    "url": "https://arabclaw.com",
-    "description": "أسهل طريقة لاستخدام الذكاء الاصطناعي بالعربية - OpenClaw باللغة العربية",
-    "inLanguage": "ar",
-    "publisher": {
-      "@type": "Organization",
-      "name": "ArabClaw Team",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://arabclaw.com/mascot.jpg"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://arabclaw.com/#organization",
+        "name": "ArabClaw",
+        "url": "https://arabclaw.com",
+        "description": "المرجع العربي الأول لـ OpenClaw ومجتمع المطورين العرب للذكاء الاصطناعي",
+        "foundingDate": "2026",
+        "foundingTeam": "Moutarjam",
+        "areaServed": "Arab World",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Arabic-speaking developers and AI enthusiasts"
+        },
+        "sameAs": ["https://github.com/arabclaw/arabclaw"],
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://arabclaw.com/mascot.jpg"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://arabclaw.com/#website",
+        "url": "https://arabclaw.com",
+        "name": "ArabClaw - OpenClaw بالعربية",
+        "description": "أكبر مجتمع عربي حول OpenClaw — دليل التثبيت، الوثائق، والـ fork العربي",
+        "inLanguage": "ar",
+        "publisher": { "@id": "https://arabclaw.com/#organization" }
       }
-    }
+    ]
   };
 
   return (

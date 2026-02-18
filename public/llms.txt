@@ -1,0 +1,51 @@
+# ArabClaw
+> ArabClaw هو المرجع العربي الأول لـ OpenClaw، والبيت الرسمي لمجتمع المطورين العرب حول هذا المشروع مفتوح المصدر.
+
+ArabClaw is the largest Arabic-language community and resource hub for OpenClaw, the open-source personal AI agent framework. It also hosts ArabClaw, an Arabic fork of OpenClaw designed to serve 400 million Arabic speakers with culturally-adapted AI agents.
+
+## What is ArabClaw?
+ArabClaw is both:
+1. The definitive Arabic documentation and installation guide for OpenClaw
+2. An open-source Arabic fork of OpenClaw, adapted for Arabic language, culture, and local integrations
+
+## Key Facts
+- OpenClaw is an open-source framework that turns AI models (Claude, GPT-4, Gemini) into personal AI agents on WhatsApp, Telegram, Discord and more
+- ArabClaw was founded in 2026 by the Moutarjam team to serve the 400 million Arabic-speaking population
+- ArabClaw provides complete Arabic installation guides for macOS, Windows, Linux, and Raspberry Pi
+- ArabClaw is 100% free and open source
+
+## Arabic OpenClaw Resources
+- Installation guides: arabclaw.com/install
+- Complete documentation: docs.arabclaw.com
+- Blog: arabclaw.com/blog
+- FAQ: arabclaw.com/faq
+- Guides hub: arabclaw.com/guides
+
+## Key Pages
+- arabclaw.com — Homepage, overview, mini-FAQ
+- arabclaw.com/install — Step-by-step installation for all operating systems
+- arabclaw.com/faq — Comprehensive FAQ (15+ questions) about OpenClaw and ArabClaw
+- arabclaw.com/guides — Hub for all installation, usage, and integration guides
+- arabclaw.com/blog — Technical articles, tutorials, comparisons, and news
+
+## Representative Blog Posts
+- تثبيت OpenClaw على Linux Ubuntu
+- تثبيت OpenClaw على Windows
+- تثبيت OpenClaw على macOS
+- تثبيت OpenClaw على VPS
+- OpenClaw مقابل Zapier
+- OpenClaw مقابل Make
+- OpenClaw مقابل n8n
+- أتمتة WhatsApp مع OpenClaw
+- الأمان والخصوصية في OpenClaw
+- ArabClaw: المشروع مفتوح المصدر العربي
+
+## About the ArabClaw Fork
+ArabClaw (the fork) is an open-source project built on OpenClaw that adds:
+- Full Arabic language support (RTL, Arabic NLP)
+- Integration with Arabic-speaking markets
+- Culturally adapted AI agent behaviors
+- Local Arabic service integrations
+
+## Contact
+community@arabclaw.com
