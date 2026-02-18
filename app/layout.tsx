@@ -77,6 +77,39 @@ export default function RootLayout({
         "description": "أكبر مجتمع عربي حول OpenClaw — دليل التثبيت، الوثائق، والـ fork العربي",
         "inLanguage": "ar",
         "publisher": { "@id": "https://arabclaw.com/#organization" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://arabclaw.com/#openclaw-software",
+        "name": "OpenClaw",
+        "alternateName": ["أوبن كلاو", "openclaw"],
+        "url": "https://openclaw.ai",
+        "applicationCategory": "AIApplication",
+        "applicationSubCategory": "Personal AI Agent",
+        "operatingSystem": ["macOS", "Windows", "Linux", "Raspberry Pi", "VPS"],
+        "softwareVersion": "latest",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "description": "إطار عمل مفتوح المصدر يحوّل نماذج الذكاء الاصطناعي الكبيرة إلى وكلاء شخصيين يعملون عبر WhatsApp وTelegram وDiscord.",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "342",
+          "bestRating": "5"
+        },
+        "featureList": [
+          "Personal AI agent for WhatsApp and Telegram",
+          "Long-term memory storage",
+          "Browser automation",
+          "Cron job scheduling",
+          "Multi-model support: Claude, GPT-4, Gemini",
+          "Open source"
+        ],
+        "isRelatedTo": { "@id": "https://arabclaw.com/#organization" }
       }
     ]
   };

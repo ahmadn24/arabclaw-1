@@ -43,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: 'https://arabclaw.com/openclaw',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.95,
+    },
+    {
       url: 'https://arabclaw.com/about',
       lastModified: new Date(),
       changeFrequency: 'monthly',
