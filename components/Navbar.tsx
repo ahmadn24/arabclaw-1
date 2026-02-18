@@ -55,6 +55,13 @@ export default function Navbar() {
             الرئيسية
           </Link>
           <Link
+            href="/openclaw"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-medium"
+          >
+            ما هو OpenClaw؟
+          </Link>
+          <Link
             href="/install"
             onClick={() => setIsOpen(false)}
             className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-medium"
@@ -90,6 +97,9 @@ export default function Navbar() {
             <div className="flex items-center gap-6">
               <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 الرئيسية
+              </Link>
+              <Link href="/openclaw" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                ما هو OpenClaw؟
               </Link>
               <Link href="/install" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 التثبيت
