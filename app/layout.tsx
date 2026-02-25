@@ -61,8 +61,8 @@ export const metadata: Metadata = {
     canonical: "https://arabclaw.com",
     languages: {
       'ar': 'https://arabclaw.com',
-      // 'en': 'https://arabclaw.com/en', // Ready for future EN version
-      'x-default': 'https://arabclaw.com',
+      'en': 'https://arabclaw.com/en',
+      'x-default': 'https://arabclaw.com/en',
     },
   },
   verification: {
