@@ -18,16 +18,50 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
+  const baseUrl = 'https://arabclaw.com'
 
   if (!post) {
     return {
       title: 'مقال غير موجود',
+      description: 'المقال المطلوب غير موجود',
     }
   }
 
+  const articleUrl = `${baseUrl}/blog/${slug}`
+  const description = post.excerpt || `${post.title} — مقال من مدونة ArabClaw حول OpenClaw بالعربية`
+
   return {
     title: post.title,
-    description: post.excerpt,
+    description: description,
+    authors: [{ name: 'ArabClaw Team' }],
+    alternates: {
+      canonical: articleUrl,
+    },
+    openGraph: {
+      title: post.title,
+      description: description,
+      url: articleUrl,
+      siteName: 'ArabClaw',
+      locale: 'ar_SA',
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['ArabClaw Team'],
+      images: [
+        {
+          url: '/mascot.jpg',
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: description,
+      images: ['/mascot.jpg'],
+      creator: '@ArabClaw',
+    },
   }
 }
 
@@ -40,25 +74,55 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   // JSON-LD structured data for blog post
+  const articleUrl = `https://arabclaw.com/blog/${slug}`
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": articleUrl,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": articleUrl
+    },
     "headline": post.title,
-    "description": post.excerpt,
+    "description": post.excerpt || `${post.title} — مقال من مدونة ArabClaw`,
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://arabclaw.com/mascot.jpg",
+      "width": 1200,
+      "height": 630
+    },
     "datePublished": post.date,
+    "dateModified": post.date,
     "author": {
       "@type": "Organization",
-      "name": "ArabClaw Team"
+      "name": "ArabClaw Team",
+      "url": "https://arabclaw.com/about"
     },
     "publisher": {
       "@type": "Organization",
+      "@id": "https://arabclaw.com/#organization",
       "name": "ArabClaw",
+      "url": "https://arabclaw.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://arabclaw.com/mascot.jpg"
+        "url": "https://arabclaw.com/mascot.jpg",
+        "width": 512,
+        "height": 512
       }
     },
-    "inLanguage": "ar"
+    "inLanguage": "ar",
+    "isPartOf": {
+      "@type": "Blog",
+      "@id": "https://arabclaw.com/blog",
+      "name": "مدونة ArabClaw",
+      "description": "مقالات ودروس OpenClaw بالعربية"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "OpenClaw",
+      "url": "https://openclaw.ai"
+    },
+    "wordCount": post.content ? post.content.split(/\s+/).length : 0
   };
 
   return (

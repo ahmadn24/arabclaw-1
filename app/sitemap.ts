@@ -2,58 +2,75 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts()
+  const baseUrl = 'https://arabclaw.com'
+  const now = new Date()
   
-  const blogUrls = posts.map((post) => ({
-    url: `https://arabclaw.com/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
-  return [
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
-      url: 'https://arabclaw.com',
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
+      url: baseUrl,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 1.0,
+      // hreflang ready for future EN version
+      // alternates: {
+      //   languages: {
+      //     ar: baseUrl,
+      //     en: `${baseUrl}/en`,
+      //   },
+      // },
     },
     {
-      url: 'https://arabclaw.com/install',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: `${baseUrl}/install`,
+      lastModified: now,
+      changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: 'https://arabclaw.com/faq',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: `${baseUrl}/openclaw`,
+      lastModified: now,
+      changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: 'https://arabclaw.com/guides',
-      lastModified: new Date(),
+      url: `${baseUrl}/faq`,
+      lastModified: now,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.8,
     },
     {
-      url: 'https://arabclaw.com/blog',
-      lastModified: new Date(),
+      url: `${baseUrl}/guides`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: now,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: 'https://arabclaw.com/openclaw',
-      lastModified: new Date(),
+      url: `${baseUrl}/about`,
+      lastModified: now,
       changeFrequency: 'monthly',
-      priority: 0.95,
+      priority: 0.6,
     },
-    {
-      url: 'https://arabclaw.com/about',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    ...blogUrls,
   ]
+
+  // Dynamic blog posts
+  let blogPosts: MetadataRoute.Sitemap = []
+  try {
+    const posts = getAllPosts()
+    blogPosts = posts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.date ? new Date(post.date) : now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
+  } catch {
+    // If blog posts can't be loaded, continue with static pages only
+  }
+
+  return [...staticPages, ...blogPosts]
 }

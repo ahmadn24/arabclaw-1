@@ -3,8 +3,25 @@ import { getAllPosts } from '@/lib/blog'
 import BlogCard from '@/components/BlogCard'
 
 export const metadata: Metadata = {
-  title: 'المدونة',
-  description: 'مقالات، دروس، ونصائح حول OpenClaw بالعربية',
+  title: 'مدونة ArabClaw — مقالات ودروس OpenClaw بالعربية',
+  description: 'مدونة ArabClaw: مقالات تقنية، دروس تفصيلية، ونصائح حول OpenClaw بالعربية. تعلّم الأتمتة، بناء Skills، تكامل WhatsApp وTelegram، وأكثر من 20 دليلاً متخصصاً.',
+  keywords: ['مدونة OpenClaw', 'دروس OpenClaw', 'مقالات ذكاء اصطناعي بالعربي', 'OpenClaw tutorials Arabic'],
+  alternates: {
+    canonical: 'https://arabclaw.com/blog',
+  },
+  openGraph: {
+    title: 'مدونة ArabClaw — مقالات ودروس OpenClaw',
+    description: 'مقالات تقنية، دروس، ونصائح حول OpenClaw بالعربية',
+    url: 'https://arabclaw.com/blog',
+    type: 'website',
+    images: ['/mascot.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'مدونة ArabClaw',
+    description: 'مقالات ودروس OpenClaw بالعربية 📝',
+    images: ['/mascot.jpg'],
+  },
 }
 
 export default function BlogPage() {

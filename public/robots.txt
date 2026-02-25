@@ -1,0 +1,21 @@
+# ArabClaw - robots.txt
+# https://arabclaw.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://arabclaw.com/sitemap.xml
+
+# Crawl-delay (optional, respectful for servers)
+Crawl-delay: 1
+
+# Block development/admin paths if any
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow important resources
+Allow: /mascot.jpg
+Allow: /*.js$
+Allow: /*.css$

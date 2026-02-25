@@ -1,8 +1,25 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'من نحن',
-  description: 'تعرّف على ArabClaw - مشروعنا لجعل OpenClaw متاحاً للمستخدمين العرب',
+  title: 'من نحن — ArabClaw: المرجع العربي الأول لـ OpenClaw',
+  description: 'تعرّف على ArabClaw — المرجع العربي الأول لـ OpenClaw. مشروعنا لجعل الذكاء الاصطناعي متاحاً لـ 400 مليون ناطق بالعربية. توثيق كامل، مجتمع نشط، ومحتوى عربي متخصص.',
+  keywords: ['ArabClaw', 'من نحن', 'OpenClaw بالعربي', 'مجتمع OpenClaw العربي', 'Moutarjam'],
+  alternates: {
+    canonical: 'https://arabclaw.com/about',
+  },
+  openGraph: {
+    title: 'من نحن — ArabClaw',
+    description: 'المرجع العربي الأول لـ OpenClaw. مشروعنا لجعل الذكاء الاصطناعي متاحاً للعرب.',
+    url: 'https://arabclaw.com/about',
+    type: 'website',
+    images: ['/mascot.jpg'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'من نحن — ArabClaw',
+    description: 'المرجع العربي الأول لـ OpenClaw',
+    images: ['/mascot.jpg'],
+  },
 }
 
 export default function AboutPage() {

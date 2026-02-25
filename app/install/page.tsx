@@ -2,8 +2,25 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'تثبيت OpenClaw',
-  description: 'دليل التثبيت الكامل لـ OpenClaw بالعربية - ثلاث طرق سهلة',
+  title: 'تثبيت OpenClaw — دليل التثبيت الكامل بالعربية 2026',
+  description: 'دليل تثبيت OpenClaw الكامل بالعربية: ثلاث طرق سهلة (سكريبت تلقائي، npm، Docker). متوافق مع macOS وWindows وLinux وRaspberry Pi. ابدأ في 5 دقائق!',
+  keywords: ['تثبيت OpenClaw', 'install OpenClaw', 'OpenClaw npm', 'OpenClaw Docker', 'تثبيت أوبن كلاو'],
+  alternates: {
+    canonical: 'https://arabclaw.com/install',
+  },
+  openGraph: {
+    title: 'تثبيت OpenClaw — دليل التثبيت الكامل بالعربية',
+    description: 'دليل تثبيت OpenClaw الكامل بالعربية: ثلاث طرق سهلة. ابدأ في 5 دقائق!',
+    url: 'https://arabclaw.com/install',
+    type: 'article',
+    images: ['/mascot.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'تثبيت OpenClaw بالعربية',
+    description: 'ثلاث طرق سهلة لتثبيت OpenClaw. ابدأ في 5 دقائق!',
+    images: ['/mascot.jpg'],
+  },
 }
 
 export default function InstallPage() {
