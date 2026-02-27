@@ -152,11 +152,11 @@ AutoGPT لا يزال قوياً لحالات استخدام محددة، لكن
 
 ## مقالات ذات صلة
 
-- [أوبن كلاو (OpenClaw) مقابل n8n: المقارنة الشاملة لعام 2026](/blog/2026-02-22-openclaw-vs-n8n-muqarana-2026)
-- [أوبن كلاو (OpenClaw) مقابل Make.com: أيهما الأفضل لأتمتة سير العمل؟](/blog/2026-02-18-openclaw-vs-make-muqarana-shamilah)
-- [مقارنة شاملة: OpenClaw مقابل Zapier 2026](/blog/2026-02-21-openclaw-vs-zapier-2026-muqarana)
-- [كيف تبني مساعدك الشخصي الذكي مع أوبن كلاو (OpenClaw)](/blog/2026-02-16-musa3id-shakhsi-thaki-openclaw)
-- [دليل المبتدئين لـ OpenClaw](/blog/2026-01-28-dalil-mubtadin-openclaw)
+- [أوبن كلاو (OpenClaw) مقابل n8n: المقارنة الشاملة لعام 2026](/blog/2026-02-17-openclaw-vs-n8n-comparison)
+- [أوبن كلاو (OpenClaw) مقابل Make.com: أيهما الأفضل لأتمتة سير العمل؟](/blog/2026-02-09-openclaw-vs-make-comparison)
+- [مقارنة شاملة: OpenClaw مقابل Zapier 2026](/blog/2026-02-26-openclaw-vs-zapier-detailed-comparison)
+- [كيف تبني مساعدك الشخصي الذكي مع أوبن كلاو (OpenClaw)](/blog/2026-02-13-create-personal-ai-assistant)
+- [دليل المبتدئين لـ OpenClaw](/blog/beginners-guide)
 
 ## الأسئلة الشائعة
 
