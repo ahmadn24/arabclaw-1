@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * generate-article.mjs
- * Génère un article de blog SEO en arabe pour arabclaw via Anthropic
- * et le sauvegarde dans content/blog/
+ * generate-article.mjs — ArabClaw blog cron
+ * Article quotidien en arabe : 1200-1500 mots, GEO block, FAQ schema.org,
+ * tableau structuré, liens internes réels, frontmatter complet.
  */
 
 import fs from "fs";
@@ -19,41 +19,115 @@ if (!ANTHROPIC_API_KEY) {
   process.exit(1);
 }
 
-const TOPICS = [
-  { slug: "openclaw-restaurants-cafes-automation", title: "كيف يساعد OpenClaw أصحاب المطاعم والكافيهات على أتمتة العمليات", tags: ["أتمتة", "مطاعم", "كافيهات", "OpenClaw"] },
-  { slug: "openclaw-ecommerce-arab-world", title: "OpenClaw للتجارة الإلكترونية العربية: أتمتة الطلبات والمتابعة والدعم", tags: ["تجارة إلكترونية", "أتمتة", "دعم عملاء", "OpenClaw"] },
-  { slug: "openclaw-vs-chatgpt-arabic-business", title: "OpenClaw مقابل ChatGPT: أيهما أفضل للأعمال العربية في 2026؟", tags: ["مقارنة", "ChatGPT", "OpenClaw", "ذكاء اصطناعي"] },
-  { slug: "openclaw-arabic-startups-guide", title: "دليل الشركات الناشئة العربية: كيف تبني وكيل ذكاء اصطناعي بـ OpenClaw", tags: ["شركات ناشئة", "ريادة أعمال", "OpenClaw", "دليل"] },
-  { slug: "openclaw-data-privacy-local-solution", title: "حماية البيانات والخصوصية مع OpenClaw: لماذا الحل المحلي أفضل؟", tags: ["أمن", "خصوصية", "بيانات", "OpenClaw"] },
-  { slug: "openclaw-real-estate-arab-automation", title: "وكيل ذكاء اصطناعي للعقارات: كيف يؤتمت OpenClaw المبيعات والاستفسارات", tags: ["عقارات", "أتمتة", "مبيعات", "OpenClaw"] },
-  { slug: "openclaw-raspberry-pi-arabic-guide", title: "تشغيل OpenClaw على Raspberry Pi: الدليل الكامل بالعربية", tags: ["Raspberry Pi", "لينكس", "تثبيت", "OpenClaw"] },
-  { slug: "openclaw-digital-marketing-arab", title: "وكيل ذكاء اصطناعي للتسويق الرقمي: نشر المحتوى وتحليل البيانات تلقائياً", tags: ["تسويق رقمي", "وسائل تواصل", "محتوى", "OpenClaw"] },
-  { slug: "openclaw-lawyers-arab-legal-automation", title: "OpenClaw للمحامين العرب: أتمتة إدارة القضايا والوثائق", tags: ["محامون", "قانون", "أتمتة", "OpenClaw"] },
-  { slug: "openclaw-education-training-arab-world", title: "كيف يغير OpenClaw قطاع التعليم والتدريب في العالم العربي", tags: ["تعليم", "تدريب", "ذكاء اصطناعي", "OpenClaw"] },
-  { slug: "openclaw-project-management-automation", title: "أتمتة إدارة المشاريع بالكامل مع OpenClaw: من الجدولة إلى التقارير", tags: ["إدارة مشاريع", "أتمتة", "إنتاجية", "OpenClaw"] },
-  { slug: "openclaw-healthcare-clinics-automation", title: "OpenClaw في القطاع الصحي: أتمتة المواعيد والمتابعة مع حماية البيانات", tags: ["صحة", "عيادات", "أتمتة", "OpenClaw"] },
-  { slug: "openclaw-whatsapp-bot-step-by-step", title: "بناء روبوت واتساب ذكي مع OpenClaw: دليل خطوة بخطوة", tags: ["واتساب", "روبوت", "تعليمي", "OpenClaw"] },
-  { slug: "openclaw-arabic-journalism-news-monitoring", title: "وكيل ذكاء اصطناعي للصحافة العربية: مراقبة الأخبار وتلخيصها تلقائياً", tags: ["صحافة", "إعلام", "أتمتة", "OpenClaw"] },
-  { slug: "openclaw-vs-make-n8n-arab-comparison", title: "OpenClaw مقابل Make و n8n: المقارنة الشاملة للمستخدم العربي", tags: ["مقارنة", "Make", "n8n", "OpenClaw"] },
-  { slug: "openclaw-performance-tips-10", title: "10 نصائح لتحسين أداء OpenClaw وتسريع ردود الوكيل الذكي", tags: ["أداء", "تحسين", "نصائح", "OpenClaw"] },
-  { slug: "openclaw-banking-financial-services", title: "OpenClaw في الخدمات المالية: أتمتة دعم العملاء مع الامتثال الكامل", tags: ["بنوك", "خدمات مالية", "أتمتة", "OpenClaw"] },
-  { slug: "openclaw-multi-agent-team-building", title: "كيف تبني فريقاً من وكلاء الذكاء الاصطناعي مع OpenClaw", tags: ["فريق", "وكلاء", "ذكاء اصطناعي", "OpenClaw"] },
-  { slug: "openclaw-hotels-tourism-arabic", title: "OpenClaw للفنادق والسياحة: أتمتة الحجوزات والاستفسارات بالعربية", tags: ["سياحة", "فنادق", "أتمتة", "OpenClaw"] },
-  { slug: "ai-future-arab-world-2026", title: "مستقبل الذكاء الاصطناعي في العالم العربي: توقعات 2026 وما بعدها", tags: ["مستقبل", "ذكاء اصطناعي", "عالم عربي", "توقعات"] },
+// ── Slugs réels existants pour liens internes ─────────────────────────────
+const INTERNAL_LINKS = [
+  { slug: "beginners-guide", label: "دليل المبتدئين لأوبن كلاو" },
+  { slug: "top-skills-arabe", label: "أفضل 10 Skills للمستخدمين العرب" },
+  { slug: "install-macos-visuel", label: "تثبيت OpenClaw على macOS" },
+  { slug: "install-openclaw-vps", label: "تثبيت OpenClaw على VPS" },
+  { slug: "create-first-skill", label: "إنشاء أول Skill خاص بك" },
+  { slug: "2026-02-08-whatsapp-automation-guide", label: "أتمتة واتساب مع أوبن كلاو" },
+  { slug: "2026-02-09-openclaw-vs-make-comparison", label: "مقارنة أوبن كلاو مع Make" },
+  { slug: "2026-02-09-openclaw-vs-zapier-comparison", label: "مقارنة أوبن كلاو مع Zapier" },
+  { slug: "2026-02-10-github-automation-openclaw", label: "أتمتة GitHub مع أوبن كلاو" },
+  { slug: "2026-02-14-openclaw-security-privacy-guide", label: "دليل الأمان والخصوصية" },
+  { slug: "2026-02-16-email-automation-himalaya", label: "أتمتة البريد الإلكتروني" },
+  { slug: "2026-02-17-openclaw-vs-n8n-comparison", label: "مقارنة أوبن كلاو مع n8n" },
+  { slug: "2026-02-22-telegram-automation-guide", label: "أتمتة تيليغرام مع أوبن كلاو" },
+  { slug: "2026-03-01-customer-service-automation-openclaw", label: "أتمتة خدمة العملاء" },
+  { slug: "2026-03-04-openclaw-entrepreneurs-arabes-startup", label: "أوبن كلاو للشركات الناشئة العربية" },
+  { slug: "2026-03-22-multi-agent-orchestration-openclaw", label: "تنسيق وكلاء متعددين مع أوبن كلاو" },
+  { slug: "openclaw-restaurants-cafes-automation", label: "أوبن كلاو للمطاعم والكافيهات" },
 ];
 
-// Trouver un topic non encore publié
-const existingSlugs = fs.readdirSync(CONTENT_DIR).map(f => f.replace(/\.md$/, ""));
-const nextTopic = TOPICS.find(t => !existingSlugs.includes(t.slug));
+// ── 6 catégories — rotation quotidienne ──────────────────────────────────
+const CATEGORIES = [
+  {
+    name: "تعليمي",
+    topics: [
+      { slug: "openclaw-skills-creation-advanced-guide", title: "إنشاء Skills متقدمة في أوبن كلاو: من الفكرة إلى النشر" },
+      { slug: "openclaw-memory-system-explained", title: "كيف يعمل نظام الذاكرة في أوبن كلاو: MEMORY.md وملفات السياق" },
+      { slug: "openclaw-cron-jobs-automation-arabic", title: "جدولة المهام التلقائية مع أوبن كلاو: دليل cron الشامل" },
+      { slug: "openclaw-subagents-parallel-tasks", title: "تشغيل مهام متوازية مع Sub-agents في أوبن كلاو" },
+    ],
+  },
+  {
+    name: "وكلاء الذكاء الاصطناعي",
+    topics: [
+      { slug: "openclaw-autonomous-agent-vs-chatbot", title: "الوكيل الذكي المستقل مقابل chatbot: ما الفرق الحقيقي؟" },
+      { slug: "openclaw-agent-workflow-design-arabic", title: "تصميم سير عمل وكلاء الذكاء الاصطناعي: أفضل الممارسات" },
+      { slug: "openclaw-llm-local-vs-cloud-arabic", title: "نماذج اللغة المحلية مقابل السحابية في أوبن كلاو: مقارنة شاملة" },
+      { slug: "openclaw-agent-arab-customer-service", title: "بناء وكيل ذكاء اصطناعي لخدمة العملاء العرب من الصفر" },
+    ],
+  },
+  {
+    name: "مقارنات الأدوات",
+    topics: [
+      { slug: "openclaw-vs-langchain-arabic", title: "أوبن كلاو مقابل LangChain: أيهما أنسب للمطوّر العربي؟" },
+      { slug: "openclaw-vs-autogen-microsoft", title: "أوبن كلاو مقابل AutoGen: مقارنة إطارات الوكلاء الذكية" },
+      { slug: "openclaw-vs-flowise-nocode-arabic", title: "أوبن كلاو مقابل Flowise: البديل المفتوح المصدر للمستخدم العربي" },
+      { slug: "openclaw-vs-dify-ai-comparison", title: "أوبن كلاو مقابل Dify: مقارنة منصات الذكاء الاصطناعي التجاري" },
+    ],
+  },
+  {
+    name: "الذكاء الاصطناعي في العالم العربي",
+    topics: [
+      { slug: "ai-arabic-language-models-2026", title: "نماذج اللغة العربية في 2026: هل وصلنا إلى التكافؤ مع الإنجليزية؟" },
+      { slug: "digital-sovereignty-arab-world-ai", title: "السيادة الرقمية في العالم العربي: لماذا الحلول المحلية أمر لا بد منه" },
+      { slug: "ai-startups-gulf-region-2026", title: "الشركات الناشئة في مجال الذكاء الاصطناعي بمنطقة الخليج: أبرز اللاعبين 2026" },
+      { slug: "openclaw-arabic-rtl-interface-guide", title: "دعم اللغة العربية RTL في أوبن كلاو: التخصيص الكامل" },
+    ],
+  },
+  {
+    name: "دليل المبتدئين",
+    topics: [
+      { slug: "what-is-openclaw-complete-guide-ar", title: "ما هو أوبن كلاو؟ الدليل الشامل للمبتدئين بالعربية" },
+      { slug: "openclaw-first-week-setup-checklist", title: "قائمة التحقق لأسبوعك الأول مع أوبن كلاو" },
+      { slug: "openclaw-common-mistakes-beginners", title: "أشيع 10 أخطاء يقع فيها المبتدئون مع أوبن كلاو وكيف تتجنبها" },
+      { slug: "openclaw-telegram-bot-setup-arabic", title: "ربط أوبن كلاو بتيليغرام: خطوات الإعداد الكامل" },
+    ],
+  },
+  {
+    name: "حالات الاستخدام التجاري",
+    topics: [
+      { slug: "openclaw-ecommerce-order-tracking-automation", title: "أتمتة تتبع الطلبات والشحن في التجارة الإلكترونية مع أوبن كلاو" },
+      { slug: "openclaw-accounting-invoicing-arab-sme", title: "المحاسبة والفوترة التلقائية للشركات الصغيرة والمتوسطة العربية" },
+      { slug: "openclaw-social-media-scheduler-arabic", title: "جدولة منشورات وسائل التواصل الاجتماعي بالعربية مع أوبن كلاو" },
+      { slug: "openclaw-lead-generation-crm-arabic", title: "توليد العملاء المحتملين وإدارة CRM تلقائياً مع أوبن كلاو" },
+    ],
+  },
+];
+
+// ── Anti-doublon : lire les slugs et titres existants ────────────────────
+const existingSlugs = new Set(
+  fs.readdirSync(CONTENT_DIR).map(f => f.replace(/\.md$/, ""))
+);
+
+// Rotation de catégorie par jour
+const dayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+const category = CATEGORIES[dayIndex % CATEGORIES.length];
+
+// Choisir un topic non encore publié dans la catégorie (sinon autre catégorie)
+let nextTopic = null;
+for (let i = 0; i < CATEGORIES.length; i++) {
+  const cat = CATEGORIES[(dayIndex + i) % CATEGORIES.length];
+  const topic = cat.topics.find(t => !existingSlugs.has(t.slug));
+  if (topic) {
+    nextTopic = topic;
+    break;
+  }
+}
 
 if (!nextTopic) {
-  console.log("⚠️ Tous les sujets programmés sont déjà publiés.");
+  console.log("⚠️  Tous les sujets sont déjà publiés.");
   process.exit(0);
 }
 
 console.log(`📝 Sujet : ${nextTopic.title}`);
+console.log(`📂 Catégorie : ${category.name}`);
 
-async function callClaude(prompt, maxTokens = 4000) {
+// ── Appel Anthropic ───────────────────────────────────────────────────────
+async function callClaude(prompt, maxTokens = 6000) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -70,68 +144,93 @@ async function callClaude(prompt, maxTokens = 4000) {
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Anthropic API error: ${res.status} — ${err}`);
+    throw new Error(`Anthropic API error ${res.status}: ${err}`);
   }
-
   const data = await res.json();
   return data.content[0].text;
 }
 
 const today = new Date().toISOString().split("T")[0];
 
-const prompt = `أنت خبير في الذكاء الاصطناعي والأتمتة تكتب لمدونة ArabClaw، المنصة العربية الرائدة لـ OpenClaw.
+// Sélectionner 4 liens internes aléatoires
+const shuffled = [...INTERNAL_LINKS].sort(() => Math.random() - 0.5).slice(0, 4);
+const internalLinksText = shuffled.map(l => `- [${l.label}](/blog/${l.slug})`).join("\n");
+
+const prompt = `أنت خبير في الذكاء الاصطناعي والأتمتة، تكتب لمدونة ArabClaw — المنصة العربية الرائدة لأوبن كلاو (OpenClaw).
 
 الموضوع: ${nextTopic.title}
 
-تعليمات صارمة:
-- اكتب بالعربية الفصحى المبسطة، واضحة ومباشرة
-- الطول: 1000-1500 كلمة من المحتوى الحقيقي (لا حشو)
-- استخدم ## للعناوين الرئيسية و### للعناوين الفرعية
-- أضف 3-5 روابط داخلية من هذه القائمة:
-  * [دليل التثبيت](/install)
-  * [أفضل Skills للمستخدمين العرب](/blog/top-skills-arabe)
-  * [دليل المبتدئين](/blog/beginners-guide)
-  * [مقارنة OpenClaw مع Zapier](/blog/openclaw-vs-zapier-comparison)
-  * [مقارنة OpenClaw مع Make](/blog/openclaw-vs-make-comparison)
-  * [تثبيت OpenClaw على macOS](/blog/install-macos-visuel)
-  * [من نحن](/about)
-- أضف 1-2 رابط خارجي ذا صلة (openclaw.ai، anthropic.com، إلخ)
-- اذكر OpenClaw بـ "أوبن كلاو (OpenClaw)" في أول ذكر
-- لا تستخدم الإيموجي في النص
-- لا تبدأ بعنوان H1 (سيُعرض تلقائياً)
-- اختتم بـ CTA للتثبيت أو التواصل
+═══════════════════════════════════════
+قواعد صارمة — لا استثناء
+═══════════════════════════════════════
 
+1. اللغة: العربية الفصحى المبسطة. واضح ومباشر.
+2. الطول: 1200 كلمة على الأقل من المحتوى الفعلي (احسب الكلمات).
+3. البنية الإلزامية بالترتيب:
+   أ) بلوك GEO في الأعلى مباشرة (قبل أي محتوى آخر):
+      > **ما ستتعلمه:** [جملتان تصفان ما سيكتسبه القارئ بعد قراءة المقال]
+   ب) مقدمة (فقرتان)
+   ج) على الأقل 4 أقسام ## مع محتوى وافٍ تحت كل منها
+   د) جدول واحد على الأقل أو قائمة منظمة (Markdown table أو قائمة مرقمة تفصيلية)
+   هـ) قسم ## الأسئلة الشائعة — يحتوي على 5 أسئلة وأجوبة بهذا الشكل الدقيق:
+      ### سؤال 1: [السؤال]
+      **الجواب:** [جواب كامل من جملتين على الأقل]
+   و) خاتمة مع CTA واضح
+
+4. الاسم الرسمي: "أوبن كلاو (OpenClaw)" في أول ذكر، ثم "أوبن كلاو" فقط.
+5. ممنوع: الشرطة الطويلة (—)، الإيموجي، البداية بعنوان H1.
+6. روابط داخلية — أضف 3-4 من هذه القائمة بشكل طبيعي في النص:
+${internalLinksText}
+7. رابط خارجي واحد على الأقل: openclaw.ai أو anthropic.com أو github.com/openclaw.
+
+═══════════════════════════════════════
 أرجع JSON صحيح فقط (بدون markdown حوله):
+═══════════════════════════════════════
 {
-  "excerpt": "وصف مختصر للمقال (150-160 حرف) محسّن لمحركات البحث",
-  "keywords": "كلمات مفتاحية مفصولة بفاصلة (5-7 كلمات)",
+  "excerpt": "وصف 150-160 حرفاً محسّن لمحركات البحث يحتوي الكلمة المفتاحية الرئيسية",
+  "tags": ["تاغ1", "تاغ2", "تاغ3", "تاغ4"],
+  "keywords": "كلمة1، كلمة2، كلمة3، كلمة4، كلمة5",
+  "wordCount": 1250,
   "content": "محتوى المقال الكامل بصيغة Markdown..."
 }`;
 
-console.log("🤖 Génération de l'article en arabe...");
-const raw = await callClaude(prompt, 5000);
+console.log("🤖 Génération article (claude-3-5-sonnet)...");
+const raw = await callClaude(prompt, 7000);
 
+// Parser le JSON
 let parsed;
 try {
-  // Extract JSON if wrapped in code block
   const jsonMatch = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/) || [null, raw];
-  parsed = JSON.parse(jsonMatch[1].trim());
+  const jsonStr = jsonMatch[1].trim();
+  parsed = JSON.parse(jsonStr);
 } catch (e) {
-  console.error("❌ Erreur parsing JSON:", e.message);
-  console.error("Raw output:", raw.slice(0, 500));
-  process.exit(1);
+  // Tentative de récupération si JSON partiel
+  try {
+    const start = raw.indexOf("{");
+    const end = raw.lastIndexOf("}");
+    parsed = JSON.parse(raw.slice(start, end + 1));
+  } catch (e2) {
+    console.error("❌ Erreur parsing JSON:", e2.message);
+    console.error("Début de la réponse:", raw.slice(0, 300));
+    process.exit(1);
+  }
 }
 
-const { excerpt, keywords, content } = parsed;
+const { excerpt, tags, keywords, wordCount, content } = parsed;
 
+// Compter les mots réels
+const actualWords = content.replace(/[#*`>\[\]()]/g, "").trim().split(/\s+/).length;
+
+// Construire le frontmatter
 const frontmatter = `---
 title: "${nextTopic.title.replace(/"/g, '\\"')}"
 excerpt: "${(excerpt || "").replace(/"/g, '\\"')}"
 date: "${today}"
 author: "فريق ArabClaw"
-tags: ${JSON.stringify(nextTopic.tags)}
+tags: ${JSON.stringify(tags || ["OpenClaw", "ذكاء اصطناعي", "أتمتة"])}
 language: "ar"
 keywords: "${(keywords || "").replace(/"/g, '\\"')}"
+canonical: "https://arabclaw.com/blog/${nextTopic.slug}"
 ---
 
 `;
@@ -139,5 +238,9 @@ keywords: "${(keywords || "").replace(/"/g, '\\"')}"
 const filePath = path.join(CONTENT_DIR, `${nextTopic.slug}.md`);
 fs.writeFileSync(filePath, frontmatter + content, "utf8");
 
-console.log(`✅ Article écrit : ${filePath}`);
+console.log(`✅ Article écrit : ${nextTopic.slug}.md`);
+console.log(`📊 Mots estimés : ${wordCount || actualWords}`);
 console.log(`📄 Titre : ${nextTopic.title}`);
+console.log(`PUBLISH_SLUG=${nextTopic.slug}`);
+console.log(`PUBLISH_TITLE=${nextTopic.title}`);
+console.log(`PUBLISH_WORDS=${wordCount || actualWords}`);
