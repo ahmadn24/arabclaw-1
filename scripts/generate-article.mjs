@@ -191,6 +191,15 @@ ${internalLinksText}
   "tags": ["تاغ1", "تاغ2", "تاغ3", "تاغ4"],
   "keywords": "كلمة1، كلمة2، كلمة3، كلمة4، كلمة5",
   "wordCount": 1250,
+  "titleFr": "Traduction française du titre en une phrase claire",
+  "highlights": [
+    "Point fort 1 spécifique à cet article",
+    "Point fort 2 (ex: nombre d'exemples, tableaux, FAQ)",
+    "Point fort 3 (ex: liens internes vérifiés)",
+    "Point fort 4 (ex: bloc GEO conforme)",
+    "Point fort 5 (ex: aucun tiret cadratin)"
+  ],
+  "targetAudience": "Description courte du public cible en français",
   "content": "محتوى المقال الكامل بصيغة Markdown..."
 }`;
 
@@ -216,7 +225,7 @@ try {
   }
 }
 
-const { excerpt, tags, keywords, wordCount, content } = parsed;
+const { excerpt, tags, keywords, wordCount, content, titleFr, highlights, targetAudience } = parsed;
 
 // Compter les mots réels
 const actualWords = content.replace(/[#*`>\[\]()]/g, "").trim().split(/\s+/).length;
@@ -244,3 +253,7 @@ console.log(`📄 Titre : ${nextTopic.title}`);
 console.log(`PUBLISH_SLUG=${nextTopic.slug}`);
 console.log(`PUBLISH_TITLE=${nextTopic.title}`);
 console.log(`PUBLISH_WORDS=${wordCount || actualWords}`);
+console.log(`PUBLISH_CATEGORY=${category.name}`);
+console.log(`PUBLISH_TITLE_FR=${titleFr || ""}`);
+console.log(`PUBLISH_HIGHLIGHTS=${(highlights || []).join("|")}`);
+console.log(`PUBLISH_TARGET=${targetAudience || ""}`);
