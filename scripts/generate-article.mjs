@@ -128,10 +128,15 @@ console.log(`📂 Catégorie : ${category.name}`);
 
 // ── Appel Anthropic ───────────────────────────────────────────────────────
 async function callClaude(prompt, maxTokens = 6000) {
+  const isOAuth = ANTHROPIC_API_KEY.startsWith("sk-ant-oat");
+  const authHeaders = isOAuth
+    ? { "Authorization": `Bearer ${ANTHROPIC_API_KEY}`, "anthropic-beta": "oauth-2025-04-20" }
+    : { "x-api-key": ANTHROPIC_API_KEY };
+
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
-      "x-api-key": ANTHROPIC_API_KEY,
+      ...authHeaders,
       "anthropic-version": "2023-06-01",
       "content-type": "application/json",
     },
