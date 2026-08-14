@@ -10,6 +10,14 @@ export interface BlogPost {
   excerpt: string
   date: string
   content: string
+  tags: string[]
+  author: string
+  readingTime: number
+}
+
+function computeReadingTime(content: string): number {
+  const words = content.trim().split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -33,6 +41,9 @@ export function getAllPosts(): BlogPost[] {
         excerpt: data.excerpt || '',
         date: data.date || '',
         content,
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        author: data.author || 'فريق ArabClaw',
+        readingTime: computeReadingTime(content),
       }
     })
 
@@ -52,6 +63,9 @@ export function getPostBySlug(slug: string): BlogPost | null {
       excerpt: data.excerpt || '',
       date: data.date || '',
       content,
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      author: data.author || 'فريق ArabClaw',
+      readingTime: computeReadingTime(content),
     }
   } catch {
     return null

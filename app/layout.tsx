@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
-import { Cairo } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const cairo = Cairo({ 
+const plexArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
+  variable: "--font-body",
+});
+
+const kufiArabic = Noto_Kufi_Arabic({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -226,7 +235,7 @@ export default function RootLayout({
         />
         
       </head>
-      <body className={`${cairo.className} antialiased bg-white text-gray-900`}>
+      <body className={`${plexArabic.variable} ${kufiArabic.variable} ${plexArabic.className} antialiased bg-white text-gray-900`}>
         <Navbar />
         <main className="min-h-screen">
           {children}

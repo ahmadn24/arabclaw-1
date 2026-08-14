@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Icon from '@/components/Icon'
 
 export const metadata: Metadata = {
   title: 'ما هو OpenClaw (أوبن كلاو)؟ — الدليل العربي الشامل 2026',
@@ -21,42 +22,42 @@ export const metadata: Metadata = {
 }
 
 const stats = [
-  { number: '40,000+', label: 'مستخدم نشط حول العالم', emoji: '👥' },
-  { number: '10+', label: 'نموذج ذكاء اصطناعي مدعوم', emoji: '🤖' },
-  { number: '6+', label: 'منصات مراسلة: WhatsApp، Telegram، Discord...', emoji: '💬' },
-  { number: '100%', label: 'مفتوح المصدر — مجاني تماماً', emoji: '🔓' },
+  { number: '40,000+', label: 'مستخدم نشط حول العالم', icon: 'users' },
+  { number: '10+', label: 'نموذج ذكاء اصطناعي مدعوم', icon: 'robot' },
+  { number: '6+', label: 'منصات مراسلة: WhatsApp، Telegram، Discord...', icon: 'chat' },
+  { number: '100%', label: 'مفتوح المصدر — مجاني تماماً', icon: 'unlock' },
 ]
 
 const features = [
   {
     title: 'وكيل ذكي دائم التشغيل',
     desc: 'OpenClaw يعمل 24/7 على خادمك أو حاسوبك، ويستقبل رسائلك في WhatsApp وTelegram وDiscord ويرد عليها بذكاء.',
-    emoji: '⚡',
+    icon: 'bolt',
   },
   {
     title: 'ذاكرة دائمة وشخصية',
     desc: 'يتذكر OpenClaw تفضيلاتك، قراراتك، مشاريعك — كل شيء محفوظ في ملفات على جهازك لا على خوادم خارجية.',
-    emoji: '🧠',
+    icon: 'brain',
   },
   {
     title: 'يتحكم في متصفحك وتطبيقاتك',
     desc: 'يمكن لـ OpenClaw فتح المواقع، قراءة الإيميلات، ملء النماذج، ونشر التغريدات — كل ذلك بأوامر لغة طبيعية.',
-    emoji: '🖥️',
+    icon: 'desktop',
   },
   {
     title: 'أتمتة المهام المتكررة',
     desc: 'جدول مهام تلقائية: "أرسل لي ملخص الأخبار كل صباح الساعة 8"، "ذكرني بموعد الاجتماع قبل ساعة".',
-    emoji: '⏰',
+    icon: 'clock',
   },
   {
     title: 'أدوات قابلة للتوسعة — Skills',
     desc: 'أضف مهارات جديدة لوكيلك: البريد الإلكتروني، الأخبار، الطقس، GitHub، الأسواق المالية، وأكثر.',
-    emoji: '🧩',
+    icon: 'puzzle',
   },
   {
     title: 'محلي أولاً — بياناتك آمنة',
     desc: 'OpenClaw يعمل على جهازك. بياناتك لا تُرسل لأي شركة — فقط لنموذج الذكاء الاصطناعي الذي تختاره.',
-    emoji: '🔐',
+    icon: 'lock',
   },
 ]
 
@@ -183,7 +184,9 @@ export default function OpenClawPage() {
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-3xl mb-2">{s.emoji}</div>
+              <div className="mb-2 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                <Icon name={s.icon} className="h-6 w-6" />
+              </div>
               <div className="text-2xl font-bold text-blue-600 mb-1">{s.number}</div>
               <div className="text-sm text-gray-500 leading-tight">{s.label}</div>
             </div>
@@ -228,13 +231,15 @@ export default function OpenClawPage() {
             <h3 className="text-2xl font-bold text-gray-900 mt-10 mb-4">من يستخدم أوبن كلاو؟</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {[
-                { emoji: '👨‍💼', title: 'رجال الأعمال', desc: 'يستخدمونه لمعالجة الإيميلات، متابعة المشاريع، إعداد التقارير — كل ذلك بأوامر WhatsApp.' },
-                { emoji: '👩‍💻', title: 'المطورون', desc: 'يبنون أدوات مخصصة، يراجعون الكود، يتتبعون GitHub — بدون مغادرة تطبيقات المراسلة.' },
-                { emoji: '📝', title: 'كتّاب المحتوى', desc: 'يكتبون، يترجمون، ينشرون تغريدات — بوكيل يتعلم أسلوبهم مع الوقت.' },
-                { emoji: '🏥', title: 'المهنيون الصحيون', desc: 'يديرون مواعيدهم، يسجلون ملاحظات المرضى، يتتبعون الوصفات — بذكاء اصطناعي متخصص.' },
+                { icon: 'briefcase', title: 'رجال الأعمال', desc: 'يستخدمونه لمعالجة الإيميلات، متابعة المشاريع، إعداد التقارير — كل ذلك بأوامر WhatsApp.' },
+                { icon: 'code', title: 'المطورون', desc: 'يبنون أدوات مخصصة، يراجعون الكود، يتتبعون GitHub — بدون مغادرة تطبيقات المراسلة.' },
+                { icon: 'pencil', title: 'كتّاب المحتوى', desc: 'يكتبون، يترجمون، ينشرون تغريدات — بوكيل يتعلم أسلوبهم مع الوقت.' },
+                { icon: 'health', title: 'المهنيون الصحيون', desc: 'يديرون مواعيدهم، يسجلون ملاحظات المرضى، يتتبعون الوصفات — بذكاء اصطناعي متخصص.' },
               ].map((u) => (
                 <div key={u.title} className="bg-gray-50 rounded-xl p-4">
-                  <div className="text-2xl mb-2">{u.emoji}</div>
+                  <div className="mb-2 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                    <Icon name={u.icon} className="h-5 w-5" />
+                  </div>
                   <div className="font-bold text-gray-900 mb-1">{u.title}</div>
                   <div className="text-sm text-gray-600">{u.desc}</div>
                 </div>
@@ -254,7 +259,9 @@ export default function OpenClawPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {features.map((f) => (
               <div key={f.title} className="bg-white rounded-xl p-6 border border-gray-100">
-                <div className="text-3xl mb-3">{f.emoji}</div>
+                <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <Icon name={f.icon} className="h-6 w-6" />
+                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{f.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
               </div>
@@ -280,13 +287,15 @@ export default function OpenClawPage() {
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="p-6 border-l border-gray-100">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-green-600 font-bold text-sm">✅ OpenClaw (أوبن كلاو)</span>
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-white"><Icon name="check" className="h-3 w-3" /></span>
+                      <span className="text-blue-600 font-bold text-sm">OpenClaw (أوبن كلاو)</span>
                     </div>
                     <p className="text-sm text-gray-700">{c.openclaw}</p>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-gray-500 font-bold text-sm">⚪ {c.tool}</span>
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-gray-400"><Icon name="circle" className="h-3 w-3" /></span>
+                      <span className="text-gray-500 font-bold text-sm">{c.tool}</span>
                     </div>
                     <p className="text-sm text-gray-600">{c.other}</p>
                   </div>

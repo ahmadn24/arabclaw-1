@@ -28,7 +28,7 @@ TG_TOKEN=$(python3 -c "
 import json
 with open('/Users/leoc/.openclaw/openclaw.json') as f:
     c = json.load(f)
-print(c.get('channels',{}).get('telegram',{}).get('accounts',{}).get('default',{}).get('botToken',''))
+print(c.get('channels',{}).get('telegram',{}).get('accounts',{}).get('arabclaw',{}).get('botToken',''))
 ")
 TG_CHAT_ID="5586671893"
 

@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* ArabClaw brand skin — OpenClaw coral remapped over Tailwind's blue scale.
+   Content-safe: recolors every existing blue-* utility site-wide, no markup change. */
+@theme {
+  --color-blue-50:  #fff3ef;
+  --color-blue-100: #ffe2d9;
+  --color-blue-200: #ffc6b6;
+  --color-blue-300: #ffa184;
+  --color-blue-400: #ff7d54;
+  --color-blue-500: #ff5a36;
+  --color-blue-600: #e6431f;
+  --color-blue-700: #bf3616;
+  --color-blue-800: #992d16;
+  --color-blue-900: #7c2917;
+  --color-blue-950: #43120a;
+
+  --font-display: 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', sans-serif;
+}
+
 @layer base {
   * {
     -webkit-font-smoothing: antialiased;
@@ -37,13 +55,13 @@ html {
 
 /* Selection */
 ::selection {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(255, 90, 54, 0.2);
   color: inherit;
 }
 
 /* Focus Styles */
 :focus-visible {
-  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline: 2px solid rgba(255, 90, 54, 0.5);
   outline-offset: 2px;
   border-radius: 8px;
 }
@@ -68,6 +86,8 @@ a {
 .prose h2 {
   @apply text-gray-900 font-bold mb-5 mt-12 text-2xl;
   padding-top: 1rem;
+  padding-right: 0.9rem;
+  border-right: 4px solid #ff5a36;
 }
 
 .prose h3 {
@@ -92,7 +112,7 @@ a {
 
 .prose code {
   @apply bg-blue-50 text-blue-800 px-2 py-1 rounded text-sm font-mono;
-  border: 1px solid rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(255, 90, 54, 0.12);
 }
 
 .prose pre {
@@ -124,19 +144,29 @@ a {
 
 .prose blockquote {
   @apply border-r-4 border-blue-500 pr-4 py-2 my-6 italic text-gray-600;
-  background: linear-gradient(to left, rgba(59, 130, 246, 0.05), transparent);
+  background: linear-gradient(to left, rgba(255, 90, 54, 0.06), transparent);
 }
 
+/* Arabic display font on headings */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+
 .prose table {
-  @apply w-full border-collapse mb-6;
+  @apply w-full border-collapse mb-6 rounded-xl overflow-hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
 }
 
 .prose th {
-  @apply bg-gray-100 text-gray-900 font-bold p-3 text-right border border-gray-300;
+  @apply text-white font-bold p-3 text-right;
+  background: linear-gradient(to left, #ff5a36, #ff7a56);
 }
 
 .prose td {
-  @apply p-3 text-gray-700 border border-gray-300;
+  @apply p-3 text-gray-700 border-t border-gray-200;
+}
+
+.prose tbody tr:nth-child(even) {
+  @apply bg-gray-50;
 }
 
 .prose hr {

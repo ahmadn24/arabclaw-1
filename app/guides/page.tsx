@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Icon from '@/components/Icon'
 
 export const metadata: Metadata = {
   title: 'أدلة OpenClaw وArabClaw — تثبيت، استخدام، وتكامل',
@@ -14,7 +15,7 @@ const installGuides = [
     title: 'تثبيت OpenClaw على macOS',
     description: 'دليل تفصيلي مع صور توضيحية لتثبيت OpenClaw على Mac — Apple Silicon وIntel',
     href: '/blog/install-macos-visuel',
-    emoji: '🍎',
+    icon: 'apple',
     level: 'مبتدئ',
     time: '15 دقيقة',
   },
@@ -22,7 +23,7 @@ const installGuides = [
     title: 'تثبيت OpenClaw على Windows',
     description: 'خطوة بخطوة لتثبيت وتشغيل OpenClaw على Windows 10 و11',
     href: '/blog/2026-02-18-install-openclaw-windows',
-    emoji: '🪟',
+    icon: 'windows',
     level: 'مبتدئ',
     time: '20 دقيقة',
   },
@@ -30,7 +31,7 @@ const installGuides = [
     title: 'تثبيت OpenClaw على Linux (Ubuntu)',
     description: 'دليل شامل لتثبيت OpenClaw على Ubuntu وDebian وغيرهما من توزيعات Linux',
     href: '/blog/2026-02-11-install-openclaw-linux-ubuntu',
-    emoji: '🐧',
+    icon: 'linux',
     level: 'متوسط',
     time: '20 دقيقة',
   },
@@ -38,7 +39,7 @@ const installGuides = [
     title: 'تثبيت OpenClaw على VPS',
     description: 'شغّل وكيلك الذكي 24/7 على خادم سحابي — DigitalOcean أو Hetzner أو غيرهما',
     href: '/blog/install-openclaw-vps',
-    emoji: '☁️',
+    icon: 'cloud',
     level: 'متقدم',
     time: '30 دقيقة',
   },
@@ -46,7 +47,7 @@ const installGuides = [
     title: 'تثبيت OpenClaw على Raspberry Pi',
     description: 'حوّل Raspberry Pi إلى وكيل ذكاء اصطناعي شخصي يعمل طوال الوقت بتكلفة زهيدة',
     href: '/install',
-    emoji: '🍓',
+    icon: 'raspberry',
     level: 'متوسط',
     time: '25 دقيقة',
   },
@@ -57,49 +58,49 @@ const usageGuides = [
     title: 'دليل المبتدئين — أول 30 دقيقة مع OpenClaw',
     description: 'من الصفر إلى وكيل ذكاء اصطناعي شخصي يعمل معك — دليل الانطلاق السريع',
     href: '/blog/beginners-guide',
-    emoji: '🚀',
+    icon: 'rocket',
     level: 'مبتدئ',
   },
   {
     title: 'إنشاء أول Skill لوكيلك',
     description: 'تعلّم كيف تبني قدرة جديدة لوكيلك الذكي — مقدمة في Skills API',
     href: '/blog/create-first-skill',
-    emoji: '🔧',
+    icon: 'wrench',
     level: 'متوسط',
   },
   {
     title: 'أفضل Skills للمستخدمين العرب',
     description: 'قائمة مختارة بأفضل Skills لـ OpenClaw تناسب الاحتياجات العربية',
     href: '/blog/best-skills-arabic',
-    emoji: '⭐',
+    icon: 'star',
     level: 'مبتدئ',
   },
   {
     title: 'أتمتة المهام مع Cron Jobs',
     description: 'جدوَل مهاماً تلقائية تُنفَّذ في أوقات محددة — تقارير يومية، تذكيرات، وأكثر',
     href: '/blog/2026-02-15-cron-jobs-automation-guide',
-    emoji: '⏰',
+    icon: 'clock',
     level: 'متوسط',
   },
   {
     title: 'إنشاء مساعد ذكاء اصطناعي شخصي',
     description: 'صمّم شخصية وكيلك وذاكرته وأسلوبه ليناسب احتياجاتك تماماً',
     href: '/blog/2026-02-13-create-personal-ai-assistant',
-    emoji: '🤖',
+    icon: 'robot',
     level: 'متوسط',
   },
   {
     title: 'أتمتة البريد الإلكتروني',
     description: 'اجعل وكيلك يقرأ بريدك ويردّ عليه ويصنّفه بذكاء',
     href: '/blog/email-automation-openclaw',
-    emoji: '📧',
+    icon: 'email',
     level: 'متقدم',
   },
   {
     title: 'أتمتة المنزل الذكي',
     description: 'ربط OpenClaw بأجهزة المنزل الذكي والتحكم فيها بالأوامر الطبيعية',
     href: '/blog/2026-02-12-smart-home-automation-openclaw',
-    emoji: '🏠',
+    icon: 'home',
     level: 'متقدم',
   },
 ]
@@ -109,21 +110,21 @@ const integrationGuides = [
     title: 'OpenClaw مع WhatsApp',
     description: 'ربط وكيلك بـ WhatsApp الشخصي أو Business — خطوة بخطوة',
     href: '/blog/2026-02-08-whatsapp-automation-guide',
-    emoji: '💚',
+    icon: 'whatsapp',
     platform: 'WhatsApp',
   },
   {
     title: 'OpenClaw مع Telegram',
     description: 'إنشاء بوت Telegram متكامل مع وكيل OpenClaw الذكي',
     href: '/blog/openclaw-telegram',
-    emoji: '✈️',
+    icon: 'plane',
     platform: 'Telegram',
   },
   {
     title: 'OpenClaw مع Himalaya (البريد)',
     description: 'تكامل OpenClaw مع Himalaya لأتمتة البريد الإلكتروني من سطر الأوامر',
     href: '/blog/2026-02-16-email-automation-himalaya',
-    emoji: '📬',
+    icon: 'email',
     platform: 'Email',
   },
 ]
@@ -133,19 +134,19 @@ const comparisons = [
     title: 'OpenClaw مقابل Zapier',
     description: 'مقارنة شاملة: متى تستخدم OpenClaw ومتى تستخدم Zapier؟',
     href: '/blog/2026-02-09-openclaw-vs-zapier-comparison',
-    emoji: '⚡',
+    icon: 'bolt',
   },
   {
     title: 'OpenClaw مقابل Make (Integromat)',
     description: 'الفروق الجوهرية بين OpenClaw وMake، وأيهما أنسب لك',
     href: '/blog/2026-02-09-openclaw-vs-make-comparison',
-    emoji: '🔄',
+    icon: 'refresh',
   },
   {
     title: 'OpenClaw مقابل n8n',
     description: 'مقارنة بين حلَّين مفتوحَي المصدر للأتمتة — OpenClaw ضد n8n',
     href: '/blog/2026-02-17-openclaw-vs-n8n-comparison',
-    emoji: '🔀',
+    icon: 'shuffle',
   },
 ]
 
@@ -191,7 +192,9 @@ export default function GuidesPage() {
       <div className="max-w-5xl mx-auto px-6 py-16" dir="rtl">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="text-6xl mb-6">🗺️</div>
+          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <Icon name="map" className="h-10 w-10" />
+          </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             مركز الأدلة
           </h1>
@@ -226,7 +229,7 @@ export default function GuidesPage() {
         {/* Section 1: Installation Guides */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-blue-100 pb-4">
-            <span>⚙️</span>
+            <span className="text-blue-600"><Icon name="gear" className="h-7 w-7" /></span>
             <span>أدلة التثبيت</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -237,7 +240,7 @@ export default function GuidesPage() {
                 className="border border-gray-200 rounded-xl p-6 bg-white hover:border-blue-400 hover:shadow-lg transition-all group"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl flex-shrink-0">{guide.emoji}</span>
+                  <span className="flex-shrink-0 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Icon name={guide.icon} className="h-6 w-6" /></span>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 mb-2 transition-colors">
                       {guide.title}
@@ -249,7 +252,7 @@ export default function GuidesPage() {
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${levelColors[guide.level]}`}>
                         {guide.level}
                       </span>
-                      <span className="text-gray-400 text-xs">⏱ {guide.time}</span>
+                      <span className="inline-flex items-center gap-1 text-gray-400 text-xs"><Icon name="clock" className="h-3.5 w-3.5" /> {guide.time}</span>
                     </div>
                   </div>
                 </div>
@@ -260,8 +263,8 @@ export default function GuidesPage() {
 
         {/* Section 2: Usage Guides */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-green-100 pb-4">
-            <span>📖</span>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-blue-100 pb-4">
+            <span className="text-blue-600"><Icon name="book" className="h-7 w-7" /></span>
             <span>أدلة الاستخدام</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,12 +272,12 @@ export default function GuidesPage() {
               <Link
                 key={index}
                 href={guide.href}
-                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-green-400 hover:shadow-lg transition-all group"
+                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-blue-400 hover:shadow-lg transition-all group"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-4xl flex-shrink-0">{guide.emoji}</span>
+                  <span className="flex-shrink-0 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Icon name={guide.icon} className="h-6 w-6" /></span>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-700 mb-2 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 mb-2 transition-colors">
                       {guide.title}
                     </h3>
                     <p className="text-gray-600 text-sm leading-relaxed mb-3">
@@ -292,8 +295,8 @@ export default function GuidesPage() {
 
         {/* Section 3: Integration Guides */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-purple-100 pb-4">
-            <span>🔌</span>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-blue-100 pb-4">
+            <span className="text-blue-600"><Icon name="plug" className="h-7 w-7" /></span>
             <span>أدلة التكامل</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -301,13 +304,13 @@ export default function GuidesPage() {
               <Link
                 key={index}
                 href={guide.href}
-                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-purple-400 hover:shadow-lg transition-all group text-center"
+                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-blue-400 hover:shadow-lg transition-all group text-center"
               >
-                <span className="text-5xl block mb-4">{guide.emoji}</span>
-                <div className="text-xs font-medium text-purple-600 mb-2 bg-purple-50 px-2 py-1 rounded-full inline-block">
+                <span className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"><Icon name={guide.icon} className="h-7 w-7" /></span>
+                <div className="text-xs font-medium text-blue-600 mb-2 bg-blue-50 px-2 py-1 rounded-full inline-block">
                   {guide.platform}
                 </div>
-                <h3 className="text-base font-bold text-gray-900 group-hover:text-purple-700 mb-2 transition-colors">
+                <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700 mb-2 transition-colors">
                   {guide.title}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
@@ -320,8 +323,8 @@ export default function GuidesPage() {
 
         {/* Section 4: Comparisons */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-orange-100 pb-4">
-            <span>⚖️</span>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-blue-100 pb-4">
+            <span className="text-blue-600"><Icon name="scale" className="h-7 w-7" /></span>
             <span>مقارنات</span>
           </h2>
           <p className="text-gray-600 mb-6">
@@ -332,10 +335,10 @@ export default function GuidesPage() {
               <Link
                 key={index}
                 href={guide.href}
-                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-orange-400 hover:shadow-lg transition-all group text-center"
+                className="border border-gray-200 rounded-xl p-6 bg-white hover:border-blue-400 hover:shadow-lg transition-all group text-center"
               >
-                <span className="text-5xl block mb-4">{guide.emoji}</span>
-                <h3 className="text-base font-bold text-gray-900 group-hover:text-orange-700 mb-2 transition-colors">
+                <span className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"><Icon name={guide.icon} className="h-7 w-7" /></span>
+                <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700 mb-2 transition-colors">
                   {guide.title}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">

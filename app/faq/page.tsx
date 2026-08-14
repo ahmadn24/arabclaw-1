@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Icon from '@/components/Icon'
 
 export const metadata: Metadata = {
   title: 'الأسئلة الشائعة — ArabClaw وOpenClaw بالعربية',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 const faqCategories = [
   {
     title: 'ما هو OpenClaw وArabClaw؟',
-    emoji: '🤔',
+    icon: 'question',
     questions: [
       {
         question: 'ما هو OpenClaw؟',
@@ -38,7 +39,7 @@ const faqCategories = [
   },
   {
     title: 'التثبيت والمتطلبات التقنية',
-    emoji: '⚙️',
+    icon: 'gear',
     questions: [
       {
         question: 'ما هي متطلبات تثبيت OpenClaw؟',
@@ -68,7 +69,7 @@ const faqCategories = [
   },
   {
     title: 'المنصات والتكاملات',
-    emoji: '💬',
+    icon: 'chat',
     questions: [
       {
         question: 'ما هي منصات المراسلة المدعومة؟',
@@ -86,7 +87,7 @@ const faqCategories = [
   },
   {
     title: 'الأسعار والترخيص',
-    emoji: '💰',
+    icon: 'money',
     questions: [
       {
         question: 'هل ArabClaw مجاني؟',
@@ -100,7 +101,7 @@ const faqCategories = [
   },
   {
     title: 'المجتمع والـ Fork العربي',
-    emoji: '🌍',
+    icon: 'globe',
     questions: [
       {
         question: 'كيف أشارك في مجتمع ArabClaw؟',
@@ -114,7 +115,7 @@ const faqCategories = [
   },
   {
     title: 'استكشاف الأخطاء',
-    emoji: '🔧',
+    icon: 'wrench',
     questions: [
       {
         question: 'لا يستجيب الوكيل في WhatsApp، ما الحل؟',
@@ -156,7 +157,9 @@ export default function FAQPage() {
       <div className="max-w-4xl mx-auto px-6 py-16" dir="rtl">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="text-6xl mb-6">❓</div>
+          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <Icon name="question" className="h-10 w-10" />
+          </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             الأسئلة الشائعة
           </h1>
@@ -175,7 +178,7 @@ export default function FAQPage() {
                   href={`#cat-${index}`}
                   className="text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2"
                 >
-                  <span>{cat.emoji}</span>
+                  <span className="text-blue-500"><Icon name={cat.icon} className="h-5 w-5" /></span>
                   <span>{cat.title}</span>
                   <span className="text-blue-400 text-sm">({cat.questions.length} أسئلة)</span>
                 </a>
@@ -189,7 +192,7 @@ export default function FAQPage() {
           {faqCategories.map((category, catIndex) => (
             <section key={catIndex} id={`cat-${catIndex}`}>
               <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3 border-b-2 border-blue-100 pb-4">
-                <span>{category.emoji}</span>
+                <span className="text-blue-600"><Icon name={category.icon} className="h-7 w-7" /></span>
                 <span>{category.title}</span>
               </h2>
               <div className="space-y-6">
