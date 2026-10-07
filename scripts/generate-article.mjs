@@ -38,7 +38,18 @@ const INTERNAL_LINKS = [
   { slug: "2026-03-04-openclaw-entrepreneurs-arabes-startup", label: "أوبن كلاو للشركات الناشئة العربية" },
   { slug: "2026-03-22-multi-agent-orchestration-openclaw", label: "تنسيق وكلاء متعددين مع أوبن كلاو" },
   { slug: "openclaw-restaurants-cafes-automation", label: "أوبن كلاو للمطاعم والكافيهات" },
+  { slug: "what-is-openclaw-complete-guide-ar", label: "ما هو أوبن كلاو؟ الدليل الشامل" },
+  { slug: "openclaw-telegram-bot-setup-arabic", label: "ربط أوبن كلاو بتيليغرام" },
+  { slug: "openclaw-choosing-right-model-beginners-arabic", label: "اختيار النموذج المناسب في أوبن كلاو" },
+  { slug: "openclaw-first-cron-job-setup-arabic", label: "إعداد أول مهمة مجدولة في أوبن كلاو" },
+  { slug: "openclaw-memory-system-explained", label: "نظام الذاكرة في أوبن كلاو" },
+  { slug: "day-with-fares-ai-assistant-arabic", label: "يوم كامل مع فارس المساعد الذكي" },
+  { slug: "fares-vs-chatgpt-ai-agents-comparison", label: "فارس مقابل ChatGPT ووكلاء الذكاء الاصطناعي" },
+  { slug: "fares-arabclaw-telegram-personal-assistant", label: "فارس: مساعدك الشخصي الذكي على تيليجرام" },
 ];
+
+// Produit à mettre en avant naturellement quand le sujet s'y prête
+const FARES_URL = "https://fares.arabclaw.com";
 
 // ── 6 catégories — rotation quotidienne ──────────────────────────────────
 const CATEGORIES = [
@@ -276,8 +287,10 @@ if (!nextTopic) {
 console.log(`📝 Sujet : ${nextTopic.title}`);
 console.log(`📂 Catégorie : ${category.name}`);
 
-// ── Appel Anthropic ───────────────────────────────────────────────────────
-async function callClaude(prompt, maxTokens = 6000) {
+// ── Appel Anthropic (Sonnet d'abord, fallback Haiku, retry + backoff) ────
+const MODELS = ["claude-sonnet-4-6", "claude-haiku-4-5-20251001"];
+
+async function callModelOnce(model, prompt, maxTokens) {
   const isOAuth = ANTHROPIC_API_KEY.startsWith("sk-ant-oat");
   const authHeaders = isOAuth
     ? { "Authorization": `Bearer ${ANTHROPIC_API_KEY}`, "anthropic-beta": "oauth-2025-04-20" }
@@ -291,7 +304,7 @@ async function callClaude(prompt, maxTokens = 6000) {
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
+      model,
       max_tokens: maxTokens,
       messages: [{ role: "user", content: prompt }],
     }),
@@ -299,10 +312,38 @@ async function callClaude(prompt, maxTokens = 6000) {
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Anthropic API error ${res.status}: ${err}`);
+    const e = new Error(`Anthropic API error ${res.status}: ${err.slice(0, 300)}`);
+    e.status = res.status;
+    throw e;
   }
   const data = await res.json();
+  if (data.stop_reason === "max_tokens") {
+    console.warn("⚠️  Réponse tronquée (max_tokens atteint)");
+  }
   return data.content[0].text;
+}
+
+async function callClaude(prompt, maxTokens = 12000) {
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let lastErr;
+  for (const model of MODELS) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        console.log(`🤖 ${model} (tentative ${attempt}/3)...`);
+        return await callModelOnce(model, prompt, maxTokens);
+      } catch (e) {
+        lastErr = e;
+        console.warn(`⚠️  ${e.message}`);
+        // 404 = modèle inconnu → passer direct au modèle suivant
+        if (e.status === 404) break;
+        // 401/403 = clé invalide → inutile de réessayer
+        if (e.status === 401 || e.status === 403) throw e;
+        // 429/529/5xx/réseau (ENOTFOUND...) → backoff puis retry
+        if (attempt < 3) await sleep(attempt * 30000);
+      }
+    }
+  }
+  throw lastErr;
 }
 
 const today = new Date().toISOString().split("T")[0];
@@ -311,7 +352,7 @@ const today = new Date().toISOString().split("T")[0];
 const shuffled = [...INTERNAL_LINKS].sort(() => Math.random() - 0.5).slice(0, 4);
 const internalLinksText = shuffled.map(l => `- [${l.label}](/blog/${l.slug})`).join("\n");
 
-const prompt = `أنت خبير في الذكاء الاصطناعي والأتمتة، تكتب لمدونة ArabClaw — المنصة العربية الرائدة لأوبن كلاو (OpenClaw).
+const prompt = `أنت كاتب تقني عربي محترف بخبرة عشر سنوات في الذكاء الاصطناعي والأتمتة، تكتب لمدونة ArabClaw — المنصة العربية الرائدة لأوبن كلاو (OpenClaw). مقالاتك تُقرأ لأنها عملية وصادقة، لا لأنها محشوة بالكلمات.
 
 الموضوع: ${nextTopic.title}
 
@@ -319,24 +360,30 @@ const prompt = `أنت خبير في الذكاء الاصطناعي والأت�
 قواعد صارمة — لا استثناء
 ═══════════════════════════════════════
 
-1. اللغة: العربية الفصحى المبسطة. واضح ومباشر.
-2. الطول: 1200 كلمة على الأقل من المحتوى الفعلي (احسب الكلمات).
+1. اللغة: العربية الفصحى المبسطة. واضح ومباشر، جُمل قصيرة.
+2. الطول: 1500 كلمة على الأقل من المحتوى الفعلي (احسب الكلمات).
 3. البنية الإلزامية بالترتيب:
    أ) بلوك GEO في الأعلى مباشرة (قبل أي محتوى آخر):
       > **ما ستتعلمه:** [جملتان تصفان ما سيكتسبه القارئ بعد قراءة المقال]
-   ب) مقدمة (فقرتان)
+   ب) مقدمة (فقرتان) تدخل في صلب الموضوع فوراً
    ج) على الأقل 4 أقسام ## مع محتوى وافٍ تحت كل منها
    د) جدول واحد على الأقل أو قائمة منظمة (Markdown table أو قائمة مرقمة تفصيلية)
-   هـ) قسم ## الأسئلة الشائعة — يحتوي على 5 أسئلة وأجوبة بهذا الشكل الدقيق:
+   هـ) قسم عملي تطبيقي إلزامي: إذا كان الموضوع تقنياً فضمّن أوامر أو إعدادات حقيقية في كتل code (مثل أوامر openclaw الفعلية أو ملفات الإعداد)، وإذا كان الموضوع تجارياً فضمّن سيناريو تطبيقياً مفصلاً خطوة بخطوة لحالة واقعية محددة (اسم نشاط افتراضي، المشكلة، الحل، النتيجة)
+   و) قسم ## الأسئلة الشائعة — يحتوي على 5 أسئلة وأجوبة بهذا الشكل الدقيق:
       ### سؤال 1: [السؤال]
       **الجواب:** [جواب كامل من جملتين على الأقل]
-   و) خاتمة مع CTA واضح
+   ز) خاتمة مع CTA واضح
 
 4. الاسم الرسمي: "أوبن كلاو (OpenClaw)" في أول ذكر، ثم "أوبن كلاو" فقط.
-5. ممنوع: الشرطة الطويلة (—)، الإيموجي، البداية بعنوان H1.
+5. ممنوع منعاً باتاً:
+   - الشرطة الطويلة (—) والإيموجي والبداية بعنوان H1
+   - اختراع أي إحصائيات أو أرقام أو نسب أو دراسات غير موجودة (مثل "70% من الشركات" أو "5000 طلب في الثانية"). إن لم تكن متأكداً من رقم فلا تذكره أبداً، واستبدله بوصف نوعي صادق
+   - الافتتاحيات المستهلكة مثل "في عصر التحول الرقمي" أو "في ظل التطور التكنولوجي المتسارع" أو "لا يخفى على أحد". ابدأ بمشكلة ملموسة أو سؤال مباشر أو مشهد واقعي
+   - الحشو والجمل التي لا تضيف معلومة
 6. روابط داخلية — أضف 3-4 من هذه القائمة بشكل طبيعي في النص:
 ${internalLinksText}
 7. رابط خارجي واحد على الأقل: openclaw.ai أو anthropic.com أو github.com/openclaw.
+8. إن كان الموضوع متصلاً بالمساعدين الشخصيين أو تيليغرام أو الإنتاجية أو ريادة الأعمال أو حالات الاستخدام التجارية، فاذكر "فارس" بشكل طبيعي في جملة أو جملتين مع رابط dofollow: [فارس، المساعد الذكي العربي على تيليجرام](${FARES_URL}) — بوصفه منتجاً جاهزاً مبنياً على أوبن كلاو لمن لا يريد التثبيت الذاتي. لا تقحمه قسراً في المواضيع التقنية البحتة.
 
 ═══════════════════════════════════════
 أرجع JSON صحيح فقط (بدون markdown حوله):
@@ -358,8 +405,8 @@ ${internalLinksText}
   "content": "محتوى المقال الكامل بصيغة Markdown..."
 }`;
 
-console.log("🤖 Génération article (claude-3-5-sonnet)...");
-const raw = await callClaude(prompt, 7000);
+console.log("🤖 Génération article...");
+const raw = await callClaude(prompt, 12000);
 
 // Parser le JSON
 let parsed;
